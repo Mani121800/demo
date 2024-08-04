@@ -1,0 +1,148 @@
+{% extends 'base_landingpage.html' %}
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You</title>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(90deg, #FB37FF, #18B2DE);
+        }
+
+        h1, h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        p {
+            text-align: center;
+            margin-top: 20px;
+            color: #fff;
+        }
+
+        .payment-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .razorpay-button {
+            padding: 15px 30px;
+            background-color: #007BFF; /* Blue background */
+            color: #fff; /* White text */
+            border: none;
+            border-radius: 60px; /* Larger border radius */
+            cursor: pointer;
+            font-size: 28%;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .razorpay-button:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+            transform: translateY(-2px);
+        }
+
+        .razorpay-button:active {
+            transform: translateY(0);
+        }
+
+        .confirm-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #09333f;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .confirm-button:hover {
+            background-color: #09333f;
+        }
+
+        .payment-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .custom-razorpay-button {
+            background-color: blueviolet !important; /* Add your custom color */
+            border: none;
+            color: white !important;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .custom-razorpay-button:hover {
+            background-color: orange !important;
+        }
+    </style>
+</head>
+<body>
+    <br><br><br><br><br><br>
+     <p>Redirecting to Razorpay. Please click the 'Pay with Razorpay button.</p>
+    <!--<h1>Thank you for your registration</h1>-->
+    <!--<p>Registration was successful! click pay with Razorpay button</p>-->
+<div class="payment-container">
+    <!-- <div style="  text-transform: uppercase; letter-spacing: 1px; border: 2px solid white; border-radius: 1000px; padding: 10px 20px; margin: 40px; box-shadow: 0 2px 5px 0 rgba(3,6,26,0.15); transition: .5s all ease-in-out; animation: wiggle 4s 2s infinite, pulse 2s infinite 3s cubic-bezier(0.25, 0, 0, 1);background: linear-gradient(to right, #04e0e4, #c602f7);"> -->
+        <form action="{% url 'payment-status' %}" method="POST">
+            {% csrf_token %}
+            <script
+                src="https://checkout.razorpay.com/v1/checkout.js"
+                data-key="rzp_live_mE6RBTFnjDkz48"
+                data-amount="{{ payment.amount }}"
+                data-currency="INR"
+                data-order_id="{{ payment.id }}"
+                data-buttontext="Pay with Razorpay"
+                data-name="Guru Tech"
+                data-description="Hello Techies Event payment"
+                data-image="{% static 'images/guru tech logo.jpeg' %}"
+                data-prefill.name="{{ payment.name }}"
+                data-prefill.email="{{ payment.email }}"
+                data-prefill.contact="+91 {{ payment.phone }}"
+                data-theme.color="#007BFF"
+                class="razorpay-button"
+            ></script>
+            <input type="hidden" name="hidden">
+            <input type="hidden" name="name" value="{{ payment.name }}">
+            <input type="hidden" name="email" value="{{ payment.email }}">
+            <input type="hidden" name="phone" value="{{ payment.phone }}">
+            <input type="hidden" name="amount" value="{{ payment.amount }}">
+            <input type="hidden" name="batch_number" value="{{ payment.batch_number }}">
+        </form>
+    </div>
+    <br><br>
+</body>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var razorpayButton = document.querySelector('.razorpay-payment-button');
+        if (razorpayButton) {
+            razorpayButton.classList.add('custom-razorpay-button');
+        }
+    });
+</script>
+</html>
+{% endblock content %}

@@ -1,0 +1,569 @@
+{% extends 'contactheader.html' %} {% load static %} {% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Page</title>
+    <style>
+    .error-message {
+  color: red;
+  font-size: 0.875em;
+  margin-top: 0.5em;
+}
+
+        /* General Styling */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        /* Styling for the page title area */
+        .page-title-area {
+            position: relative;
+            text-align: center;
+            color: #fff;
+            padding: 100px 0;
+            background-size: cover;
+            background-position: center;
+            background-image: url("{% static 'images/contact.jpg' %}");
+        }
+
+        .page-title-area .title {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            
+        }
+
+        .page-title-area p {
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto;
+           
+            animation-delay: 0.5s;
+        }
+
+        /* Styling for the breadcrumb container */
+        .breadcrumb-container {
+            display: inline-block;
+            padding: 10px 20px;
+            border: 2px solid #fff;
+            border-radius: 5px;
+            background-color: rgba(0, 0, 0, 0.5);
+           
+            animation-delay: 1s;
+        }
+
+        /* Styling for the breadcrumb */
+        .breadcrumb {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            font-size: 16px;
+        }
+
+        .breadcrumb li {
+            
+            display: flex;
+            align-items: center;
+        }
+
+        .breadcrumb li a {
+            color: #fff;
+            text-decoration: none;
+            border: 2px solid transparent;
+            padding: 5px 10px;
+            transition: all 0.3s ease;
+        }
+
+        .breadcrumb li a:hover {
+            border-color: #fff;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .breadcrumb li a.active {
+            border-color: #fff;
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .breadcrumb li::after {
+            content: ">";
+            color: #fff;
+            margin-left: 10px;
+        }
+
+        .breadcrumb li:last-child::after {
+            content: "";
+            margin-left: 0;
+        }
+
+        /* Contact Section Styling */
+        .contact-section {
+            padding: 50px 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .contact-section .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .contact-section .section-title h2 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .contact-section .section-title p {
+            font-size: 18px;
+            color: #777;
+        }
+
+        .contact-info {
+            /* display: flex; */
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin: 0 auto;
+            max-width: 1200px;
+        }
+
+        .contact-info .info-box {
+            background-color: #f9f9f9;
+            padding: 40px;
+            margin: 10px;
+            border-radius: 10px;
+            flex: 1;
+            max-width: 300px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .contact-info .info-box img {
+            /* max-width: 50px; */
+            margin-bottom: -22px;
+            animation: float 2s infinite ease-in-out;
+        }
+
+        .contact-info .info-box h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .contact-info .info-box p {
+            font-size: 16px;
+            color: #555;
+        }
+
+        .contact-info .info-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Map Container Styling */
+        .map-container {
+            position: relative;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+        }
+
+        .map-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* Form Section Styling */
+        .form-section {
+            background-color: #f9f9f9;
+            padding: 50px 20px;
+            margin-top: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-section .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .form-section .section-title h2 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .form-section .section-title p {
+            font-size: 18px;
+            color: #777;
+        }
+
+        .form-section .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-section .contact-form .form-control {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-section .contact-form .form-control:focus {
+            outline: none;
+            border-color: #6c757d;
+        }
+
+        .form-section .contact-form textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .form-section .contact-form .default-btn {
+            display: inline-block;
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-section .contact-form .default-btn:hover {
+            background-color: #0056b3;
+        }
+
+        /* Keyframes for fadeInUp animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Specific Icon Animations */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* Animation for pulse effect */
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* Additional animation classes */
+        .animated {
+            animation-duration: 1s;
+            animation-fill-mode: both;
+        }
+
+        .pulse {
+            animation-name: pulse;
+            animation-iteration-count: infinite;
+        }
+        /* Global styles */
+
+/* Form container */
+.form-container {
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  max-width: 450px;
+  width: 100%;
+  padding: 30px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  /* margin-left:30%; */
+
+}
+
+.form-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Form fields and button */
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 600;
+  color: #333;
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+textarea:focus {
+  outline: none;
+  border-color: #3498db;
+}
+
+.error-message {
+  color: red;
+  font-size: 0.875em;
+  margin-top: 0.5em;
+  display: block;
+  height: 1em;
+  transform: translateY(-1.5em);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Button */
+button {
+  display: inline-block;
+  background-color: #3498db;
+  color: #fff;
+  font-size: 16px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #2980b9;
+}
+
+/* Animation for error messages */
+.error-message.active {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+
+@media (max-width: 767px) {
+  .form-container {
+    margin-top: 215%;
+    margin-left:-90%;
+  }
+
+    </style>
+    
+</head>
+<body>
+
+<div  style="animation: fadeInUp 1s ease forwards;" class="page-title-area">
+    <div class="container">
+        <div class="ro justify-content-center">
+            <div class="col-sm-12 text-center">
+                <h3 class="title">Contact</h3>
+                <p>Have questions or need assistance? Our team is here to help!</p>
+            </div>
+            <br>
+           
+        </div>
+    </div>
+</div>
+
+
+    
+      <div class="section-title" style="text-align: center;">
+        <h2>Contact Info</h2>
+       
+      </div>
+    <div class="container" >
+        <div style="display: flex;">
+        <div class="contact-info">
+            <div class="info-box"><a style="text-decoration: none;" href="https://maps.app.goo.gl/BCwVQ5v9aN3PEqa1A" target="_blank" >
+              <img  decoding="async" width="67" height="47" style="border-radius: 50%;" src="{% static 'images/location.jfif' %}" alt="Location">
+                <h3>Location</h3>
+                
+                <p>180/3, STAR COMPLEX, ALAMBATTI ROAD, NAGAMANGALAM, Tiruchirappalli, TAMIL NADU 620012.</p>
+              </a>
+                </div>
+            <div class="info-box"> <a style="text-decoration: none;" href="tel:+917845493857">
+              <img style="border-radius: 50%;"  decoding="async" width="90" height="60" src="{% static 'images/phone.jfif' %}" alt="Phone">
+                <h3>Phone</h3>  
+                <p>+91 7845493857</p></a>
+            </div>
+            <div class="info-box"> <a style="text-decoration: none;" href="mailto:Gurutechharkscorp@gmail.com">
+              <img style="border-radius: 50%;"  decoding="async" width="39" height="32" src="{% static 'images/mail.jfif' %}" alt="Email">
+                <h3>Email</h3>
+                <p>gurutechharkscorp@gmail.com</p></a>
+            </div>
+        </div>
+      
+   
+        <main class="form-container" >
+          
+                        <div class="section-title" style="text-align: center;">
+                          <h2>Get in Touch</h2>
+                          <p>Send us a message</p>
+                      </div>
+                      
+              <form id="emailForm" autocomplete="off" spellcheck="false" method="post" action="{% url 'contactus' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                  <label for="fname">Name</label>
+                  <input type="text" name="fname" placeholder="Enter your name" required>
+                  <span class="error-message" id="name-error"></span>
+                </div>
+            
+                <div class="form-group">
+                  <label for="phone">Phone</label>
+                  <input type="text" name="phone" placeholder="Enter your phone number" required>
+                  <span class="error-message" id="phone-error"></span>
+                </div>
+            
+                <div class="form-group">
+                  <label for="email">Email Address</label>
+                  <input type="email" name="email" placeholder="Enter your email" required>
+                  <span class="error-message" id="email-error"></span>
+                </div>
+            
+                <div class="form-group">
+                  <label for="msg">Message</label>
+                  <textarea name="msg"  placeholder="Enter your message" rows="4" required></textarea>
+                  <span class="error-message" id="message-error"></span>
+                </div>
+            
+                <button type="submit">Submit</button>
+              </form>
+            </main>
+           </div>
+          </div>
+      
+<div class="map-container">
+    <!-- Replace the iframe src with your actual map embed code -->
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3920.2524248782524!2d78.62816937408672!3d10.71500336032562!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3baaf5b6c2310893%3A0x6b4eb1601f0c52b5!2sGuru%20Technical%20Institute%20(Guru%20Tech)!5e0!3m2!1sen!2sin!4v1718633879912!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>  
+  </div>
+
+
+  <script>
+        const form = document.querySelector(".form-container form");
+
+        form.onsubmit = (e) => {
+            e.preventDefault();
+
+            // Clear previous error messages
+            document.querySelectorAll(".error-message").forEach(el => el.classList.remove('active'));
+
+            let isValid = true;
+
+            // Client-side validation
+            const name = form.querySelector('input[name="fname"]').value.trim();
+            const phone = form.querySelector('input[name="phone"]').value.trim();
+            const email = form.querySelector('input[name="email"]').value.trim();
+            const message = form.querySelector('textarea[name="msg"]').value.trim();
+
+            // Name validation
+            if (!name) {
+                isValid = false;
+                document.getElementById('fname-error').textContent = 'Name is required.';
+                document.getElementById('fname-error').classList.add('active');
+            }
+
+            // Phone validation (10 digits only)
+            const phonePattern = /^(\+?\d{1,4}[-\s]?)?\d{10}$/;
+    if (!phone.match(phonePattern)) {
+        isValid = false;
+        document.getElementById('phone-error').textContent = 'Enter a valid phone number (10 digits or with country code).';
+        document.getElementById('phone-error').classList.add('active');
+    }
+
+            // Email validation
+            const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (!email.match(emailPattern)) {
+                isValid = false;
+                document.getElementById('email-error').textContent = 'Enter a valid email address.';
+                document.getElementById('email-error').classList.add('active');
+            }
+
+            // Message validation
+            if (!message) {
+                isValid = false;
+                document.getElementById('msg-error').textContent = 'Message is required.';
+                document.getElementById('msg-error').classList.add('active');
+            }
+
+            if (!isValid) {
+                return;
+            }
+
+            const formData = new FormData(form);
+            fetch(form.getAttribute('action'), {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': formData.get('csrfmiddlewaretoken')
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(data.message);
+                    form.reset(); // Clear the form fields
+                } else {
+                    // Handle server-side validation errors
+                    Object.keys(data.errors).forEach(key => {
+                        document.getElementById(`${key}-error`).textContent = data.errors[key];
+                        document.getElementById(`${key}-error`).classList.add('active');
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        };
+    </script>
+
+
+</body>
+</html>
+
+{% endblock content %}

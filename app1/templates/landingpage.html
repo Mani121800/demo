@@ -1,0 +1,1644 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Guru Tech</title>
+    
+    <!-- 🏢 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- mail and phone -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <style>
+      body,html {
+        margin : 0;
+        overflow-x: hidden;
+      }
+      /* Base styles remain the same */
+  
+      #navbar {
+          background-color: black;
+          color: white;
+          width: 100%;
+          position: fixed;
+          top: 0;
+          left: 0;
+          z-index: 1000;
+          box-shadow: 0 4px 2px -2px gray;
+          padding: 10px 20px; /* Adjust padding as needed */
+          box-sizing: border-box; /* Ensures padding is included in width calculation */
+      }
+  
+      .headercontainer {
+          width: 100%;
+          max-width: 1200px; /* adjust max-width as needed */
+          margin: 0 auto; /* center the container */
+          padding: 0 20px; /* add padding for inner content */
+          display: flex;
+          justify-content: space-between;
+      }
+  
+      .logo-container {
+          display: flex;
+          align-items: center;
+          flex-grow: 1; /* Grow to take remaining space */
+      }
+  
+      .logo-container img {
+          width: 57px;
+          height: 55px;
+          margin-right: 9px; /* Small gap between logo and text */
+          border-radius: 50%;
+      }
+  
+      .logo-text {
+          font-size: 20px;
+          color: white;
+      }
+  
+      .largenav {
+          display: flex;
+          align-items: center;
+          list-style-type: none;
+          padding: 0;
+          margin: 0;
+          flex-wrap: wrap; /* Allow wrapping on smaller screens */
+      }
+  
+      .upper-links {
+          margin-right: 20px;
+      }
+  
+      .upper-links a {
+          text-decoration: none;
+          color: white;
+          font-size: 18px;
+          transition: color 0.3s;
+      }
+  
+      .upper-links a:hover {
+          color: #ccc;
+      }
+  
+      /* Media query for screens smaller than 768px (mobile) */
+      @media screen and (max-width: 767px) {
+          #navbar {
+              padding: 8px 15px; /* Adjusted padding for smaller screens */
+          }
+  
+          .headercontainer {
+              flex-direction: column;
+              padding: 8px 10px; /* Adjust padding for a more compact look */
+          }
+  
+          .logo-container {
+              margin-bottom: 10px; /* Add space below logo */
+              text-align: left; /* Align left for mobile */
+              flex-grow: 0; /* Don't grow to take remaining space */
+          }
+  
+          .logo-text {
+              font-size: 18px; /* Decrease font size of logo text */
+          }
+  
+          .largenav {
+              display: none; /* Initially hide the navigation links */
+              flex-direction: column;
+              align-items: center; /* Center align nav items */
+              width: 100%;
+              margin-top: 10px; /* Add space at the top */
+          }
+  
+          .upper-links {
+              margin: 5px 0;
+              width: 100%;
+              text-align: center; /* Center align links */
+          }
+  
+          .upper-links a {
+              font-size: 16px; /* Decrease font size of links */
+              padding: 10px 20px; /* Adjust padding for touch areas */
+              display: block; /* Make links full-width and block-level */
+          }
+  
+          .upper-links a:hover {
+              background-color: #333; /* Darken background on hover */
+          }
+      }
+  
+      /* Styles for menu icon */
+      .menu-icon {
+    display: none; /* Initially hide on larger screens */
+    cursor: pointer;
+    position: absolute;
+    top: 19px;
+    right: 15px;
+    width: 59px;
+    height: 52px;
+    background-color: white;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 50px;
+    color: black;
+    z-index: 1100;
+}
+
+.menu-icon:hover {
+    background-color: #ddd;
+}
+
+/* Media query for screens smaller than 768px (mobile) */
+@media screen and (max-width: 767px) {
+    .menu-icon {
+        display: block; /* Show menu icon on smaller screens */
+    }
+}
+
+    </style>
+  
+    <!-- This above code is 1st content of the website like Welcome to Guru Tech -->
+    <style>
+      .background {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start; /* Align items to the top */
+        height: 100vh; /* Full viewport height */
+        background-image: url("{% static 'images/Welcome page.jpg' %}");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center top; /* Adjusted background position */
+        text-align: left;
+        flex-direction: column;
+        padding: 20px;
+        box-sizing: border-box;
+        /* width: 100vw; if this code  remove scroll is remove */
+        margin-top: 70px; /* Adjust margin to account for fixed header */
+      }
+  
+      .get {
+        position: relative;
+        display: inline-block;
+        font-size: 1.0em;
+        background-color: #F28C28;
+        margin: 10px;
+        padding: 14px 26px;
+        border-radius: 5px;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        color: white;
+        overflow: hidden;
+      }
+  
+      .get::before,
+      .get::after {
+        content: "";
+        position: absolute;
+        top: -10px;
+        width: 10px;
+        height: 10px;
+        background: rgba(255, 255, 255, 0.7);
+        border-radius: 50%;
+        animation: raindrop 1.5s infinite;
+        opacity: 0;
+      }
+      
+      .get::before {
+        left: 25%;
+        animation-delay: 0.2s;
+      }
+    
+      .get::after {
+        left: 75%;
+        animation-delay: 0.5s;
+      }
+    
+      @keyframes raindrop {
+        0% {
+          top: -10px;
+          opacity: 0;
+        }
+        20% {
+          opacity: 1;
+        }
+        80% {
+          top: calc(100% + 10px);
+          opacity: 1;
+        }
+        100% {
+          top: calc(100% + 10px);
+          opacity: 0;
+        }
+      }
+  
+      .background div a {
+        color: white;
+      }
+  
+      .get:hover {
+        background-color: darkviolet; /* Slightly darker background on hover */
+      }
+  
+      .background span {
+        color: aliceblue;
+        font-family: "Poppins", sans-serif;
+        font-size: 21px;
+        display: inline-block;
+        vertical-align: middle;
+      }
+  
+      .background h3 {
+        padding-left: 15px;
+        font-size: 3em;
+        border-radius: 5px;
+      }
+  
+      .background h2 {
+        padding-left: 15px;
+        font-size: 3.5em;
+        margin-top: 20px;
+        border-radius: 5px;
+      }
+  
+      .background p {
+        color: aliceblue;
+        padding-left: 15px;
+        font-size: 1.7em;
+        text-align: left;
+        border-radius: 5px;
+        max-width: 600px; /* Limit the width for better readability */
+      }
+  
+      /* Media Query for Mobile Devices */
+      @media (max-width: 768px) {
+       
+        .background {
+          height: 75vh; /* Full viewport height */
+          align-items: center; /* Center items vertically */
+          text-align: center; /* Center text horizontally */
+          padding: 10px;
+          margin-top: 0; /* Remove margin for mobile */
+          background-position: right;
+          
+        }
+  
+        .background h2 {
+          font-size: 2.5em;
+        }
+  
+        .background h3 {
+          font-size: 2em;
+        }
+  
+        .background p {
+          font-size: 1.2em;
+          max-width: 100%;
+          padding-left: 25px;
+          text-align: center;
+        }
+  
+        .get {
+          font-size: 0.9em;
+          padding: 12px 24px;
+        }
+      }
+      .button-container {
+  /* background: linear-gradient(36deg, #44a08d, #093637); */
+  font-size: 20px;
+  margin: 7px auto 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (max-width: 930px) {
+  .button-container {
+    flex-direction: column;
+  }
+}
+
+@keyframes wiggle {
+  5%, 50% {
+    transform: scale(1);
+  }
+  10% {
+    transform: scale(0.9);
+  }
+  15% {
+    transform: scale(1.15);
+  }
+  20% {
+    transform: scale(1.15) rotate(-5deg);
+  }
+  25% {
+    transform: scale(1.15) rotate(5deg);
+  }
+  30% {
+    transform: scale(1.15) rotate(-3deg);
+  }
+  35% {
+    transform: scale(1.15) rotate(2deg);
+  }
+  40% {
+    transform: scale(1.15) rotate(0);
+  }
+}
+
+@keyframes pulse {
+  to {
+    box-shadow: 0 0 0 18px rgba(255, 255, 255, 0); 
+  }
+}
+
+    </style>
+    <style>
+    
+          .desktop-spacer {
+              display: none;
+          }
+          .desktop-space {
+              display: none;
+          }
+      
+  </style>
+  <style>
+    @media (max-width: 767px) {
+        .desktop-spacer {
+            display: block;
+        }
+    }
+  </style>
+
+   <!-- followus on-->
+    
+<style>
+  .social-section {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+
+
+.social-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.social-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.social-icon {
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+.social-text {
+  font-weight: 100;
+}
+
+.social-section {
+      display: flex;
+      justify-content: center;
+     
+      background-color: black;
+    }
+
+    .social-link {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      margin: 20px 20px;
+      transition: transform 0.3s ease-in-out;
+      color: white;
+       flex: 1;
+  min-width: 120px;
+    }
+
+    .social-link:hover {
+      transform: translateY(-5px);
+    }
+
+    .social-icon {
+      font-size: 48px; /* Increased icon size */
+      margin-bottom: 10px;
+      transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
+    }
+
+    .social-text {
+      /* font-size: 18px; */
+      font-weight: bold;
+      transition: color 0.3s ease-in-out;
+      color: #999; /* Light gray color */
+      margin-top: 5px;
+      text-align: center;
+    }
+
+    .social-link:hover .social-icon {
+      color: red;
+      transform: rotate(360deg);
+    }
+
+    .social-link:hover .social-text {
+      color: #fff; /* White color */
+    }
+
+    .header-section {
+      text-align: center;
+      margin-bottom: 30px;
+      color: white;
+    }
+
+    .followbody {
+      background-color: black;
+     
+      padding: 0;
+      text-align: center;
+    }
+
+    .followcontainer {
+      margin-bottom: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      
+    }
+
+
+</style>
+    <!-- about us -->
+    <style>
+   
+
+      :root {
+        --primary-color: #4891ff;
+        --light-color: #f4f4f6;
+        --dark-color: #111;
+        --background-color: #000;
+        --text-color: #fff;
+      }
+  
+      .aboutusbody {
+        font-family: 'Poppins', sans-serif;
+        font-size: 18px;
+        line-height: 1.5;
+        background: var(--background-color);
+        color: var(--text-color);
+        padding :100 px;
+        box-sizing: border-box;
+      }
+  
+      
+  
+      .images-container {
+        display: flex;
+        /* padding: 25px; */
+      }
+  
+      .images-container img {
+        width: 60%;
+        height: auto;
+      }
+  
+      .lapimg {
+        position: relative;
+        width: 50%;
+        margin: 5px 0;
+      }
+  
+      .pairimg {
+        position: relative;
+        width: 50%;
+        margin-top: 20%;
+        margin-left: -23%;
+      }
+  
+      .boyimg {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        height: 70%;
+        width: 100%;
+        margin-top: -8%;
+      }
+  
+      .center-circle {
+        position: absolute;
+        top: 25%;
+        left: -5%;
+        transform: translate(-50%, -50%);
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        background: linear-gradient(to right, #17bec1, #9b30ff);
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        border: 4px solid #FFF;
+      }
+  
+      .center-circle .count {
+        font-size: 2rem;
+        font-weight: bold;
+      }
+  
+      .center-circle .count::after {
+        content: "k+";
+        position: absolute;
+      }
+  
+      .about-us-container {
+        display: flex;
+        flex-direction: column;
+        padding: 50px;
+        color: var(--text-color);
+        text-align: center; /* Center align text */
+        margin-top: -35%;
+        margin-left: 30%;
+      }
+  
+      .about-us-container .subcont {
+        font-size: 4.5rem;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #fff; /* White text color */
+        text-decoration: none; /* Remove underline */
+        display: block; /* Ensure it takes full width */
+        text-align: center;
+      }
+  
+      .about-us-container .headcont h1 {
+        margin-bottom: 20px;
+        font-weight: bold;
+        text-align: center; 
+      }
+  
+      .about-us-container .cont {
+        font-size: 2rem;
+        margin-bottom: 20px;
+        text-align: justify; 
+      }
+  
+      .numbers {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+      }
+  
+      .numbers .customer-count,
+      .numbers .experts-Count,
+      .numbers .projects-Count {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 10px;
+        color: var(--text-color);
+      }
+  
+      .numbers .number, .numbers .number18 {
+        font-size: 1.8rem;
+        font-weight: bold;
+      }
+  
+      .numbers .number18::after {
+        content: "K+";
+        position: absolute;
+      }
+      .number::after {
+        content: "+";
+        position: absolute;
+      }
+      
+  
+      @media (min-width: 768px) {
+        .images-container {
+          flex-direction: row;
+        }
+        .lapimg {
+          width: 50%;
+        }
+  
+        .about-us-container {
+          margin-right: 0; /* Adjust margin for better spacing */
+          margin-left: auto; /* Move container to the right */
+          max-width: 600px;
+        }
+      }
+  
+      @media (min-width: 1024px) {
+        .center-circle {
+          width: 200px;
+          height: 200px;
+        }
+  
+        .about-us-container .headcont h1 {
+          font-size: 2rem;
+        }
+  
+        .numbers .number, .numbers .number18 {
+          font-size: 2rem;
+        }
+      }
+  
+      /* Responsive styles for mobile view */
+      @media (max-width: 767px) {
+        .images-container {
+          flex-direction: column;
+          align-items: center;
+        }
+  
+        .lapimg {
+          width: 80%;
+          margin: 5px 0;
+        }
+  
+        .boyimg {
+          width: 100%;
+          margin-top: 2%;
+        }
+  
+        .pairimg{
+          width: 80%;
+          left: 55%;
+          margin-top: -60%
+        }
+          
+        .center-circle {
+          width: 146px;
+          height: 140px;
+          top: 2%;
+          left: -8%;
+          transform: translate(-50%, -50%);
+        }
+  
+        .center-circle .count {
+          font-size: 2rem;
+        }
+  
+        .about-us-container {
+          padding: 20px;
+          margin-top: 10%;
+          margin-left: 0;
+        }
+  
+        .about-us-container .subcont {
+          font-size: 4.5rem;
+        }
+  
+        .about-us-container .headcont h1 {
+          font-size: 2.2rem;
+        }
+  
+        .about-us-container .cont {
+          font-size: 2rem;
+        }
+  
+        .numbers .number, .numbers .number18 {
+          font-size: 2.2rem;
+        }
+      }
+      .aboutusimg {
+  max-inline-size: 50%;
+  border-radius: 10px;
+}
+    </style>
+    <!-- Our Courses style -->
+  <style>
+    .bodycolor {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #000000;
+      color: #ffffff;
+    }
+  
+    .heading-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 50px;
+      background-color: #000000;
+    }
+  
+    .heading-section h2 {
+      font-size: 3em;
+      font-weight: bold;
+      color: #ffffff;
+      margin: 0;
+    }
+  
+    .service-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      box-sizing: border-box;
+      background-color: #000000;
+      padding: 20px;
+    }
+  
+    .service-item {
+      flex: 0 1 calc(33.33% - 40px);
+      max-width: calc(33.33% - 40px);
+      margin: 20px;
+      box-sizing: border-box;
+    }
+    
+    .service-box {
+      text-align: center;
+      border-radius: 10px;
+      padding: 30px;
+      background-color: #ffffff;
+      transition: transform 0.3s, background-color 0.3s;
+      cursor: pointer;
+      color: #000000;
+    }
+  
+    .service-box:hover {
+      transform: translateY(-10px);
+      background-color: #f0f0f0;
+    }
+  
+    .service-box img {
+      width: 100px;
+      height: auto;
+      margin-bottom: 20px;
+    }
+  
+    .service-box h4 {
+      font-size: 1.8em;
+      font-weight: bold;
+      color: #000000;
+      margin: 0;
+    }
+  
+    .service-box p {
+      font-size: 1em;
+      color: #333333;
+      margin-bottom: 20px;
+    }
+  
+    .service-box a img {
+      width: 20px;
+      height: auto;
+    }
+  
+    /* Responsive Design for Mobile Devices */
+    @media (max-width: 768px) {
+      .service-item {
+        flex: 0 1 100%;
+        max-width: 100%;
+        margin: 10px 0;
+      }
+    }
+    </style>
+    <!-- Testimonials -->
+    <style>
+      .testimonials-container {
+        position: relative;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 40px;
+      }
+
+      .testimonials-main-heading {
+        text-align: center;
+        margin-bottom: 10px;
+        font-size: 2em;
+        color: #333;
+      }
+
+      .testimonials-sub-heading {
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 1.5em;
+        color: #666;
+      }
+
+      .testimonials-slider {
+        display: flex;
+        overflow: hidden;
+      }
+
+      .testimonial {
+        flex: 0 0 100%;
+        display: none;
+        animation: fadeIn 1s ease-in-out;
+      }
+
+      .testimonials-dots {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 30px;
+      }
+
+      .testimonial-content {
+        padding: 40px;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .testimonial-rating {
+        margin-bottom: 20px;
+        color: #f39c12;
+        font-size: 1.5em;
+      }
+
+      .testimonial-text {
+        font-style: italic;
+        margin-bottom: 30px;
+        font-size: 1.2em;
+        color: #555;
+        font-family: 'Georgia', serif;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        line-height: 1.6;
+        position: relative;
+        animation: fadeInUp 0.5s ease-in-out;
+      }
+
+      .testimonial-info {
+        display: flex;
+        align-items: center;
+      }
+
+      .testimonial-img {
+        border-radius: 50%;
+        width: 67px;
+        height: 62px;
+        margin-right: 20px;
+      }
+
+      .testimonial-details {
+        line-height: 1.2;
+      }
+
+      .testimonial-name {
+        font-weight: bold;
+        margin: 0;
+        font-size: 1.2em;
+      }
+
+      .testimonial-designation {
+        color: #777;
+        font-size: 1em;
+      }
+
+      .dot {
+        height: 20px;
+        width: 20px;
+        margin: 0 7px;
+        background-color: #bbb;
+        border-radius: 50%;
+        display: inline-block;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.3s;
+      }
+
+      .dot:hover {
+        background-color: #5bc0de;
+        transform: scale(1.2);
+      }
+
+      .dot.active {
+        background-color: #5bc0de;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+   <!-- footer -->
+    <style>
+      .upper-links {
+    list-style: none;
+}
+.upper-links:hover .dropdown-menu {
+            display: block;
+        }
+        .upper-links {
+            margin-right: 20px;
+        }
+
+        .upper-links a {
+            text-decoration: none;
+            color: white;
+        }
+        footer {
+          padding: 0px 0px 0px 0px;
+          background-color: black;
+          margin: 0px;
+        }
+        .footercontainer {
+            width: 100%;
+            margin: 0 auto;
+            padding: 25 20px;
+            font-weight: bolder;
+            font-size: larger;
+        }
+.imgtag{
+  margin-right: 5px; 
+
+}
+.mission{
+  text-align: left;
+}
+.section{
+  flex: 2;
+}
+.section p{
+  text-align: left;
+}
+.sectioncontact{
+  text-align: left;
+}
+@media (max-width: 768px) {
+  .imgtag{
+    margin-right: -335px;
+
+}
+.mission{
+  text-align: center;
+}
+.section {
+    flex: auto;
+}
+.section p{
+  text-align: center;
+}
+.sectioncontact{
+  text-align: center;
+}
+    }
+    </style>
+<!-- scroll-to-top css code -->
+    <style>
+        .scroll-to-top {
+    animation: imagePulse 1s infinite;
+  }
+  .scroll-to-top {
+    position: fixed;
+    bottom: 6px;
+    right: 10px;
+    background-color: #37babe;
+    color: #ffffff;
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-bottom: 22px;
+    padding-top: 17px;
+    border-radius: 90%;
+    display: none;
+    cursor: pointer;
+  }
+  .scroll-to-top i {
+    font-size: 1.5rem;
+  }
+  i.fas.fa-chevron-up::after {
+    cursor: pointer;
+    content: "";
+    display: block;
+    width: 3px;
+    height: 15px; /* Adjust height for desired line length */
+    background-color: rgb(252, 246, 246); /* Change color as needed */
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%) translateY(-11px); /* Adjust positioning */
+  }
+  #email:hover{
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+      <!-- This code is header -->
+  <div id="navbar">
+    <div class="headercontainer">
+        <div class="logo-container">
+          <a href="#" style="text-decoration: none;">
+            <img src="{% static 'images/guru tech logo.jpeg' %}" alt="Guru Tech Logo">
+            <span class="logo-text">Guru Tech</span>
+          </a>
+        </div>
+        <ul class="largenav">
+            
+            <li class="upper-links"><a href="{% url 'contactus' %}">Contact Us</a></li>
+            <li class="upper-links"><a href="{% url 'terms' %}">Our Business Policies</a></li>
+            <li class="upper-links"><a href="#aboutus" >About Us</a></li>
+            <li class="upper-links"><a href="#Courses" >Courses</a></li>
+            <li class="upper-links"><a href="#test" >Testimonials</a></li>
+        </ul>
+        <!-- Menu Icon for Mobile -->
+        <div class="menu-icon" onclick="toggleMenu()">☰</div>
+    </div>
+  </div>
+  <div class="desktop-spacer">
+    <br><br><br><br><br>
+</div>
+<div class="desktop-space">
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><h1></h1><h1></h1>
+</div>
+
+  <!-- This above code is 1st content of the website like Welcome to Guru Tech -->
+  <div class="background">
+    <h2 style="color: white">Welcome to Guru Tech</h2>
+    <h3 style="color: white">Explore The Beyond</h3>
+    <p>
+      Top-tier coding institute offering comprehensive programs, expert
+      instructors, and hands-on learning for aspiring developers. Join us for
+      excellence!
+    </p>
+    <div>
+      <span><a class="get" href="#Courses">Get started</a></span>
+      <span class="button-container">
+        <a href="payment_form" class="button"  style="position: relative; color: white; text-decoration: none; display: inline-block; text-transform: uppercase; letter-spacing: 1px; border: 2px solid white; border-radius: 1000px; padding: 10px 20px; margin: 40px; box-shadow: 0 2px 5px 0 rgba(3,6,26,0.15); transition: .5s all ease-in-out; animation: wiggle 4s 2s infinite, pulse 2s infinite 3s cubic-bezier(0.25, 0, 0, 1);background: linear-gradient(to right, #04e0e4, #c602f7);">
+          Pay for Advance Course
+        </a>
+      </span>
+    </div>
+  </div>  <!-- follow us on-->
+  <div style="padding-top: 6%;" class="followbody" >
+    <div class="followcontainer">
+      <section class="header-section">
+        <div>
+          <div>
+            <div>
+              <h2>Follow Us On</h2>
+            </div>
+            
+          </div>
+        </div>
+      </section>
+    </div>
+  <section class="social-section">
+    <div class="social-link">
+      <a
+        style="text-decoration: none"
+        href="https://youtube.com/@guru_tech_official?si=YL9XyVqYvhxMPrL4"
+      >
+        <ul class="social-list">
+          <li class="social-item">
+            <i class="fab fa-youtube social-icon"></i>
+            <span class="social-text">YouTube</span>
+          </li>
+        </ul>
+      </a>
+    </div>
+
+  <div class="social-link">
+    <a
+      style="text-decoration: none"
+      href="https://www.instagram.com/gurutech_official?igsh=eXB5bzNwdW0wY3Fx"
+    >
+      <ul class="social-list">
+        <li class="social-item">
+          <i class="fab fa-instagram social-icon"></i>
+          <span class="social-text">Instagram</span>
+        </li>
+      </ul>
+    </a>
+  </div>
+
+  <div class="social-link">
+    <a
+      style="text-decoration: none"
+      href="https://www.linkedin.com/company/gurutechexplorethebeyond/"
+    >
+      <ul class="social-list">
+        <li class="social-item">
+          <i class="fab fa-linkedin-in social-icon"></i>
+          <span class="social-text">LinkedIn</span>
+        </li>
+      </ul>
+    </a>
+  </div>
+ <div class="social-link">
+<a style="text-decoration: none" href="https://api.whatsapp.com/send?phone=+7845493857&text=Hi%20" target="_blank">
+<ul class="social-list">
+<li class="social-item">
+<i class="fab fa-whatsapp social-icon"></i>
+<span class="social-text">WhatsApp</span>
+</li>
+</ul>
+</a>
+</div>
+
+</section>
+</div>
+<!-- about us  -->
+
+
+<div id="aboutus"  class="aboutusbody">
+  <!-- Images Section -->
+  <div class="images-container">
+    <div  style="margin-top: 5%;" class="lapimg">
+      <img class="aboutusimg" src="{% static 'images/about us image-1.jpeg' %}" alt="Laptop">
+      <div class="boyimg">
+        <img class="aboutusimg" src="{% static 'images/about us image-2.jpeg' %}" alt="Boy">
+      </div>
+    </div>
+    <div class="pairimg">
+      <img  class="aboutusimg" src="{% static 'images/about us image-3.jpeg' %}" alt="Pair">
+      <div class="center-circle" id="centerCircle">
+        <div class="count" id="yearsCount">10</div>
+        <div style="font-weight: bold;">Years of Experience Staffs</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- About Us Section -->
+  <div class="about-us-container">
+    <div class="subcont">About Us</div>
+    <div class="headcont">
+      <h1>Gain practical skills through interactive Section.</h1>
+      <div class="cont">
+        Welcome to TechLearn, your premier destination for cutting-edge technical education. Our mission is to empower individuals and organizations with the skills and knowledge needed to thrive in today’s fast-paced digital world.
+      </div>
+      <div class="numbers">
+        <div class="customer-count">
+          <div class="number18" id="customersCount">18</div>
+          <div>Customer Served Globally</div>
+        </div>
+        <div class="experts-Count">
+          <div class="number" id="expertsCount">250</div>
+          <div>Teaching Experts</div>
+        </div>
+        <div class="projects-Count">
+          <div class="number" id="projectsCount">10</div>
+          <div>Projects</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+     <!-- Our Courses html code -->
+<div id="Courses" class="bodycolor">    
+  <div class="heading-section">
+    <h2>Our Courses</h2>
+  </div>
+  <div class="service-container">
+    <div class="service-item">
+      <div class="service-box" style="padding: 40px;">
+        <figure  id="python">
+          <img  style="border-radius: 50%;" src="{% static 'images/python.png' %}" alt="python image">
+        </figure>
+        <h4>Python</h4>
+        <p>Learn Python basics and advanced concepts through interactive lessons, coding exercises, and projects in this comprehensive 21-lesson course.</p>
+        <a href="https://designingmedia.com/fortified/our_services/network-security/"></a>
+      </div>
+    </div>
+    <div class="service-item">
+      <div class="service-box" style="padding: 30px;">
+        <figure id="java">
+          <img style="border-radius: 50%;"  src="{% static 'images/java.jfif' %}" alt="">
+        </figure>
+        <h4>Java</h4>
+        <p>Learn Java programming, focusing on object-oriented concepts and data structures. Build robust applications with hands-on projects. Perfect for beginners and experienced developers.</p>
+        <a href="https://designingmedia.com/fortified/our_services/database-security/"></a>
+      </div>
+    </div>
+    <div class="service-item">
+      <div class="service-box" style="padding: 30px;">
+        <figure id="course">
+          <img style="border-radius: 50%;"  src="{% static 'images/angular.jfif' %}" alt="">
+        </figure>
+        <h4>Angular</h4>
+        <p>Master Angular for building dynamic web applications. Cover component-based architecture, services, and dependency injection. Gain practical experience with real-world projects.</p>
+        <a href="https://designingmedia.com/fortified/our_services/web-security/"></a>
+      </div>
+    </div>
+    <div id="sql" class="service-item">
+      <div class="service-box" style="padding: 50px;">
+        <figure >
+          <img style="border-radius: 50%;"  src="{% static 'images/sql.png' %}" alt="">
+        </figure>
+        <h4>SQL</h4>
+        <p>Learn SQL for effective database management and querying. Cover data modeling, normalization, and advanced queries. Perfect for data analysts and developers.</p>
+        <a href="https://designingmedia.com/fortified/our_services/locker-security/"></a>
+      </div>
+    </div>
+    <div class="service-item">
+      <div class="service-box" style="padding: 50px;">
+        <figure id="android">
+          <img src="{% static 'images/android.png' %}" alt="">
+        </figure>
+        <h4>Android</h4>
+        <p>Develop innovative Android apps from scratch using Android Studio. Learn UI/UX design and performance optimization. Ideal for aspiring mobile developers.</p>
+        <a href="https://designingmedia.com/fortified/our_services/data-security/"></a>
+      </div>
+    </div>
+    <div class="service-item">
+      <div class="service-box" style="padding: 30px;">
+        <figure id="react">
+          <img src="{% static 'images/react.png' %}" alt="">
+        </figure>
+        <h4>React</h4>
+        <p>Master React for building responsive and interactive web interfaces. Learn components, state management, and hooks. Ideal for front-end developers enhancing their skills.</p>
+        <a href="https://designingmedia.com/fortified/our_services/cloud-security/"></a>
+      </div>
+    </div>
+  </div>
+</div>
+    <!-- Testimonials -->
+    <div class="testimonials-container">
+      <h2 id="test" class="testimonials-main-heading">Testimonials</h2>
+      <h3 class="testimonials-sub-heading">What Our students are Saying</h3>
+      <div class="testimonials-slider">
+        <!-- Testimonial 1 -->
+        <div class="testimonial">
+          <div class="testimonial-content">
+            <p class="testimonial-text">
+              "Studying Python at Guru Tech has been transformative. The hands-on projects and expert guidance have accelerated my programming skills beyond expectations."
+            </p>
+            <div class="testimonial-info">
+              <img style="width: 74px;height: 74px;" class="testimonial-img" src="{% static 'images/python student-1.jpg' %}" alt="Hari Prasath" />
+              <div class="testimonial-details">
+                <h6 class="testimonial-name">Hari Prasath</h6>
+                <h6 class="testimonial-designation">Python,student</h6>
+                <span class="testimonial-rating">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                <a class="linkedin-button" href="https://www.linkedin.com/in/hari-prasath2003?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" style="display: inline-block; margin-top: 10px;">
+                  <img src="{% static 'images/LinkedIn image.png' %}" alt="LinkedIn" style="width: 30px; height: 30px;" />
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 2 -->
+        <div class="testimonial">
+          <div class="testimonial-content">
+            <p class="testimonial-text">
+              "The personalized guidance and comprehensive resources on Guru Tech have been instrumental in enhancing my learning journey."
+            </p>
+            <div class="testimonial-info">
+              <img class="testimonial-img" src="{% static 'images/python student-2.jpg' %}" alt="Jane Smith" />
+              <div class="testimonial-details">
+                <h6 class="testimonial-name">ManiKandan</h6>
+                <h6 class="testimonial-designation">Python,student</h6>
+                <span class="testimonial-rating">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                <a class="linkedin-button" href="https://www.linkedin.com/in/manikandan-s-0bab64280?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" style="display: inline-block; margin-top: 10px;">
+                  <img src="{% static 'images/LinkedIn image.png' %}" alt="LinkedIn" style="width: 30px; height: 30px;" />
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 3 -->
+        <div class="testimonial">
+          <div class="testimonial-content">
+            <p class="testimonial-text">
+              "Joining Guru Tech was a game-changer for me; it's transformed how I approach learning and development!"
+            </p>
+            <div class="testimonial-info">
+              <img style="width: 72px;height: 68px;" class="testimonial-img" src="{% static 'images/python student-3.jpeg' %}" alt="Jane Smith" />
+              <div class="testimonial-details">
+                <h6 class="testimonial-name">SenthamizhEniyan</h6>
+                <h6 class="testimonial-designation">Python,student</h6>
+                <span class="testimonial-rating">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                <a class="linkedin-button" href="https://www.linkedin.com/in/senthamizh-eniyan-al-500aa2179" target="_blank" style="display: inline-block; margin-top: 10px;">
+                  <img src="{% static 'images/LinkedIn image.png' %}" alt="LinkedIn" style="width: 30px; height: 30px;" />
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 4 -->
+        <div class="testimonial">
+          <div class="testimonial-content">
+            <p class="testimonial-text">
+              "The practical approach and industry-relevant curriculum at Guru Tech have equipped me with the skills needed to thrive in today's competitive tech landscape."
+            </p>
+            <div class="testimonial-info">
+              <img style="width: 74px;height: 72px;" class="testimonial-img" src="{% static 'images/python student-4.jpeg' %}" alt="Jane Smith" />
+              <div class="testimonial-details">
+                <h6 class="testimonial-name">Nivedha</h6>
+                <h6 class="testimonial-designation">Python,student</h6>
+                <span class="testimonial-rating">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                <a class="linkedin-button" href="https://www.linkedin.com/in/nivedha-k-019089224" target="_blank" style="display: inline-block; margin-top: 10px;">
+                  <img src="{% static 'images/LinkedIn image.png' %}" alt="LinkedIn" style="width: 30px; height: 30px;" />
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 5 -->
+        <div class="testimonial">
+          <div class="testimonial-content">
+            <p class="testimonial-text">
+              "The Java courses at Guru Tech have been exceptional. The structured curriculum and real-world projects have prepared me well for professional software development."
+            </p>
+            <div class="testimonial-info">
+              <img style="width: 74px;height: 75px;" class="testimonial-img" src="{% static 'images/java student.jpeg' %}" alt="Jane Smith" />
+              <div class="testimonial-details">
+                <h6 class="testimonial-name">Sam</h6>
+                <h6 class="testimonial-designation">Java,student</h6>
+                <span class="testimonial-rating">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                <a class="linkedin-button" href="https://www.linkedin.com/in/samdavid16/" target="_blank" style="display: inline-block; margin-top: 10px;">
+                  <img src="{% static 'images/LinkedIn image.png' %}" alt="LinkedIn" style="width: 30px; height: 30px;" />
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonials-dots">
+        <span class="dot" onclick="showTestimonial(0)"></span>
+        <span class="dot" onclick="showTestimonial(1)"></span>
+        <span class="dot" onclick="showTestimonial(2)"></span>
+        <span class="dot" onclick="showTestimonial(3)"></span>
+        <span class="dot" onclick="showTestimonial(4)"></span>
+      </div>
+    </div>
+    <!-- footer -->
+    <footer id="contact" style="background-color: #000; color: #fff; padding-top: 10px; padding-bottom: 10px; text-align: center;">
+      <li style="padding-right:87%; margin: 0; list-style-type: none;">
+          <a class="links" href="#">
+              <img src="{% static 'images/guru tech logo.jpeg' %}" class="imgtag" alt="Guru Tech Logo" style="width:57px; height:55px; vertical-align: middle; border-radius: 50%; margin-left: 0;">
+          </a>
+      </li>
+      <div class="footercontainer" style="display: flex; flex-wrap: wrap; justify-content: center; margin: 0; padding: 0;">
+          <div class="section" style="margin: 0 20px; text-align: center;">
+              <h2 class="mission" style="font-weight: bold; margin: 10px 0; font-size: 1.3em;">Our Mission</h2>
+              <p style="margin: 0;">Develop teamwork skills through problem-solving challenges, fostering leadership, communication, and adaptability in diverse scenarios for optimal performance.</p>
+          </div>
+          <div id="section" class="section" style="flex: 1; margin: 0 20px;">
+              <h2 style="font-weight: bold; margin: 10px 0; font-size: 1.3em;">Our Courses</h2>
+              <ul style="list-style: none; padding-left: 0; margin: 0;">
+                  <li style="margin-bottom: 6px;"><a href="/#Courses" style="color: #fff; text-decoration: none; display: block;"Java</a></li>
+                  <li style="margin-bottom: 6px;"><a href="/#Courses" style="color: #fff; text-decoration: none; display: block;">Python</a></li>
+                  <li style="margin-bottom: 6px;"><a href="/#Courses" style="color: #fff; text-decoration: none; display: block;">SQL</a></li>
+                  <li style="margin-bottom: 6px;"><a href="/#Courses" style="color: #fff; text-decoration: none; display: block;">Angular</a></li>
+                  <li style="margin-bottom: 6px;"><a href="/#Courses" style="color: #fff; text-decoration: none; display: block;">Android</a></li>
+                  <li style="margin-bottom: 6px;"><a href="/#Courses" style="color: #fff; text-decoration: none; display: block;">React</a></li>
+              </ul>
+          </div>
+         
+          <div id="section" class="section" style="flex: 1; margin: 0 20px;">
+              <h2 style="font-weight: bold; margin: 10px 0; font-size: 1.3em;">Quick Links</h2>
+              <ul style="list-style: none; padding-left: 0; margin: 0;">
+                  <li style="margin-bottom: 6px;"><a href="/#" style="color: #fff; text-decoration: none; display: block;">Home</a></li>
+                  <li style="margin-bottom: 6px;"><a href="/#aboutus" style="color: #fff; text-decoration: none; display: block;">About Us</a></li>
+                  <li style="margin-bottom: 6px;"><a href="/#Courses" style="color: #fff; text-decoration: none; display: block;">Our Courses</a></li>
+                  <li style="margin-bottom: 6px;"><a href="{% url 'contactus' %}" style="color: #fff; text-decoration: none; display: block;">Contact Us</a></li>
+              </ul>
+          </div>
+  
+          <div class="sectioncontact" style="flex: 1; margin: 0 20px;">
+              <h2 style="font-weight: bold; margin: 10px 0; font-size: 1.3em;">Contact Us</h2>
+              <ul style="list-style: none; padding-left: 0; margin: 0;">
+                  <li style="margin-bottom: 6px;">
+                      <a href="tel:+917845493857" style="font-size: 20px; color: white;">
+                          <i style="transform: rotate(170deg); color: orange; font-size: 20px;" class="fas fa-phone icon"></i>
+                          +91 7845493857
+                      </a>
+                  </li>
+                  <li style="margin-bottom: 6px;">
+                      <a href="mailto:Gurutechharkscorp@gmail.com" style="font-size: 20px; color: white; display: flex; align-items: center;">
+                          <i style="font-size: 20px; color: white;" class="fas fa-envelope email-icon"></i>
+                          <span style="margin-left: 10px;">gurutechharkscorp@gmail.com</span>
+                      </a>
+                  </li>
+                  <li style="margin-bottom: 6px;">
+                      <a href="https://maps.app.goo.gl/BCwVQ5v9aN3PEqa1A" target="_blank" style="font-size: 20px; color: white;">
+                          🏢 180/3, STAR COMPLEX, ALAMBATTI ROAD, NAGAMANGALAM, TIRUCHIRAPPALLI, TAMILNADU 620012.
+                      </a>
+                  </li>
+              </ul>
+          </div>
+      </div>
+      <hr style="width: 95%; margin: 20px auto;">
+      <div class="footer" style="margin-top: 20px;">
+          <p>© <span id="currentYear"></span> Guru tech. All rights reserved.</p>
+      </div>
+  </footer>
+    <!-- scroll up button code -->
+    <div id="scrollToTop" class="scroll-to-top">
+      <i class="fas fa-chevron-up"></i>
+    </div>
+  </body>
+  <!-- this below code script is header and f -->
+
+  <script>
+    // Function to toggle the visibility of the menu and desktop space
+    function toggleMenu() {
+        var navLinks = document.querySelector('.largenav');
+        var desktopSpace = document.querySelector('.desktop-space');
+
+        // Toggle nav links
+        navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+
+        // Toggle desktop space
+        desktopSpace.style.display = desktopSpace.style.display === 'none' ? 'block' : 'none';
+    }
+
+    // Function to handle navbar color change on scroll
+    function handleScroll() {
+        var navbar = document.getElementById('navbar');
+        if (window.scrollY > 0) {
+            navbar.style.backgroundColor = 'rgba(0, 0, 0, 0.8)'; // Change to your desired shade color
+        } else {
+            navbar.style.backgroundColor = 'black'; // Revert to original color
+        }
+    }
+
+    // Function to adjust visibility based on screen size
+    function adjustVisibility() {
+        var menuIcon = document.querySelector('.menu-icon');
+        var navLinks = document.querySelector('.largenav');
+        var desktopSpace = document.querySelector('.desktop-space');
+
+        if (window.innerWidth <= 767) {
+            menuIcon.style.display = 'block';
+            navLinks.style.display = 'none'; // Hide nav links on small screens
+            desktopSpace.style.display = 'none'; // Hide desktop space on small screens
+        } else {
+            menuIcon.style.display = 'none';
+            navLinks.style.display = 'flex'; // Show nav links on larger screens
+            desktopSpace.style.display = 'none'; // Ensure desktop space is hidden on larger screens
+        }
+    }
+
+    // Event listener for scroll
+    window.addEventListener('scroll', handleScroll);
+
+    // Event listener for initial load and resize
+    window.addEventListener('load', adjustVisibility);
+    window.addEventListener('resize', adjustVisibility);
+</script>
+
+
+
+
+<!-- about us  -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const yearsCount = document.getElementById('yearsCount');
+  const customersCount = document.getElementById('customersCount');
+  const expertsCount = document.getElementById('expertsCount');
+  const projectsCount = document.getElementById('projectsCount');
+
+  // Initially hide the counts
+  yearsCount.style.visibility = 'hidden';
+  customersCount.style.visibility = 'hidden';
+  expertsCount.style.visibility = 'hidden';
+  projectsCount.style.visibility = 'hidden';
+
+  const animateValue = (obj, start, end, duration) => {
+    let startTimestamp = null;
+    const step = (timestamp) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+      obj.innerText = Math.floor(progress * (end - start) + start);
+      if (progress < 1) {
+        window.requestAnimationFrame(step);
+      }
+    };
+    window.requestAnimationFrame(step);
+  };
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // Make counts visible and start animation
+        yearsCount.style.visibility = 'visible';
+        customersCount.style.visibility = 'visible';
+        expertsCount.style.visibility = 'visible';
+        projectsCount.style.visibility = 'visible';
+
+        animateValue(yearsCount, 0, 10, 2000);
+        animateValue(customersCount, 0, 18, 2000);
+        animateValue(expertsCount, 0, 250, 2000);
+        animateValue(projectsCount, 0, 10, 2000);
+
+        observer.disconnect();  // Stop observing after animation starts
+      }
+    });
+  }, { threshold: 0.1 });
+
+  const aboutUsSection = document.querySelector('#aboutus');
+  observer.observe(aboutUsSection);
+});
+
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!-- testimonials -->
+  <script>
+   document.addEventListener("DOMContentLoaded", function () {
+  let testimonials = document.querySelectorAll(".testimonial");
+  let dots = document.querySelectorAll(".dot");
+  let currentIndex = 0;
+
+  function showTestimonial(index) {
+    testimonials.forEach((testimonial, i) => {
+      testimonial.style.display = i === index ? "block" : "none";
+      dots[i].classList.toggle("active", i === index);
+    });
+    currentIndex = index;
+  }
+
+  function showNextTestimonial() {
+    let nextIndex = (currentIndex + 1) % testimonials.length;
+    showTestimonial(nextIndex);
+  }
+
+  function showPreviousTestimonial() {
+    let prevIndex = (currentIndex - 1 + testimonials.length) % testimonials.length;
+    showTestimonial(prevIndex);
+  }
+
+  // Initial display
+  showTestimonial(0);
+
+  // Click event for dots
+  dots.forEach((dot, index) => {
+    dot.addEventListener("click", () => {
+      showTestimonial(index);
+    });
+  });
+
+  // Swipe functionality
+  let startX;
+  let endX;
+
+  testimonials.forEach((testimonial) => {
+    testimonial.addEventListener("touchstart", (e) => {
+      startX = e.touches[0].clientX;
+    });
+
+    testimonial.addEventListener("touchend", (e) => {
+      endX = e.changedTouches[0].clientX;
+      handleSwipe();
+    });
+  });
+
+  function handleSwipe() {
+    let threshold = 50; // Minimum distance in pixels for a swipe to be considered
+    if (startX - endX > threshold) {
+      // Swipe left
+      showNextTestimonial();
+    } else if (endX - startX > threshold) {
+      // Swipe right
+      showPreviousTestimonial();
+    }
+  }
+});
+
+  </script>
+<!-- scroll up button code script -->
+<script>
+  // Modal script
+  document.addEventListener("DOMContentLoaded", () => {
+    // Scroll to top button
+    const scrollToTopButton = document.getElementById("scrollToTop");
+    scrollToTopButton.addEventListener("click", () => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    });
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 300) {
+        scrollToTopButton.style.display = "block";
+      } else {
+        scrollToTopButton.style.display = "none";
+      }
+    });
+  });
+</script>
+
+
+</html>

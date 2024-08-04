@@ -1,0 +1,155 @@
+{% load static %}
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'home' %}">
+      {% comment %} <img src="{% static 'images/gurutech.jpeg' %}" alt="Brand Logo" style="height: 30px; margin-right: 10px;"> {% endcomment %}
+        <img src="{% static 'images/guru tech logo.jpeg' %}" alt="Guru Tech Logo" style="width:56px; height:50px; vertical-align: middle; margin-right: 5px; border-radius: 50%;"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        {% comment %} {% if user.is_authenticated %} {% endcomment %}
+        {% if user.is_superuser %}
+        {% comment %} <li class="nav-item">
+          <a class="nav-link" href="{% url 'add_record' %}">Add Record</a>
+        </li> {% endcomment %}
+
+        {% comment %} <li class="nav-item">
+          <a class="nav-link" href="{% url 'python' %}">Python</a>
+        </li>
+       <li class="nav-item">
+          <a class="nav-link" href="{% url 'java' %}">Java</a>
+        </li>  {% endcomment %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'community' %}">Community</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Basic Reigstration
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            {% comment %} <li><a class="dropdown-item" href="{% url 'advance_python_certificates' %}">Advance Python certificates</a></li>
+            <li><a class="dropdown-item" href="{% url 'advance_java_certificates' %}">Advance Java certificates</a></li> {% endcomment %}
+            <li><a class="dropdown-item" href="{% url 'python' %}">Basic Python registration</a></li>
+            <li><a class="dropdown-item" href="{% url 'java' %}">Basic Java registration</a></li>
+          </ul>
+        </li>
+         <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Basic Certification
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            {% comment %} <li><a class="dropdown-item" href="{% url 'advance_python_certificates' %}">Advance Python certificates</a></li>
+            <li><a class="dropdown-item" href="{% url 'advance_java_certificates' %}">Advance Java certificates</a></li> {% endcomment %}
+            <li><a class="dropdown-item" href="{% url 'basic_python_certificates' %}">Basic Python certificates</a></li>
+            <li><a class="dropdown-item" href="{% url 'basic_java_certificates' %}">Basic Java certificates</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Advance Registration
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+            <li><a class="dropdown-item" href="{% url 'advance_python_reg' %}">Advance Python Registration</a></li>
+            <li><a class="dropdown-item" href="{% url 'advance_java_reg' %}">Advance  Java Registration</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Advance Certification
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="{% url 'advance_python_certificates' %}">Advance Python certificates</a></li>
+            <li><a class="dropdown-item" href="{% url 'advance_java_certificates' %}">Advance Java certificates</a></li>
+            {% comment %} <li><a class="dropdown-item" href="{% url 'basic_python_certificates' %}">Basic Python certificates</a></li>
+            <li><a class="dropdown-item" href="{% url 'basic_java_certificates' %}">Basic Java certificates</a></li> {% endcomment %}
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Intern
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="{% url 'intern_reg' %}">Intern Registration</a></li>
+           <li><a class="dropdown-item" href="{% url 'intern_certificates' %}">Intern  certificates</a></li>
+            {% comment %} <li><a class="dropdown-item" href="{% url 'intern_python_certificates' %}">Intern Python certificates</a></li>
+            <li><a class="dropdown-item" href="{% url 'intern_java_certificates' %}">Intern Java certificates</a></li> {% endcomment %}
+            {% comment %} <li><a class="dropdown-item" href="{% url 'basic_python_certificates' %}">Basic Python certificates</a></li>
+            <li><a class="dropdown-item" href="{% url 'basic_java_certificates' %}">Basic Java certificates</a></li> {% endcomment %}
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Accounts
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="{% url 'advance_python_account_list' %}">hello techies</a></li>
+
+          </ul>
+        </li>
+        {% endif %}
+
+        {% if not user.is_authenticated %}
+        {% comment %} <li class="nav-item">
+          <a class="nav-link" href="{% url 'register' %}">Register</a>
+        </li> {% endcomment %}
+        {% comment %} <li class="nav-item">
+          <a class="nav-link" href="{% url 'home' %}">Login</a>
+        </li> {% endcomment %}
+        {% endif %}
+      </ul>
+      {% if user.is_authenticated %}
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+        </li>
+      </ul>
+      {% endif %}
+    </div>
+  </div>
+</nav>
+
+
+
+
+{% comment %} <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'home' %}">Guru Tech</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+        {% if user.is_authenticated %}
+        {% comment %} <li class="nav-item">
+          <a class="nav-link" href="{% url 'add_record' %}">Add Record</a>
+        </li> {% endcomment %}
+
+        {% comment %} <li class="nav-item">
+          <a class="nav-link" href="{% url 'python' %}">Python</a>
+        </li>
+       <li class="nav-item">
+          <a class="nav-link" href="{% url 'java' %}">Java</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'register' %}">Register</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'home' %}">Login</a>
+        </li>
+        {% endif %}
+
+
+      </ul>
+
+    </div>
+  </div>
+</nav>   {% endcomment %}

@@ -1,0 +1,90 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guru tech</title>
+    
+    <link rel="icon" href="{% static 'images/icon1.jpeg' %}" type="image/jpeg">
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+
+   * {
+     
+     font-family: "Poppins", sans-serif;
+   }
+        /* Additional custom styles */
+        body {
+            padding-top: 20px;
+            background:  linear-gradient(90deg, #FB37FF, #18B2DE);
+        }
+        .container {
+            max-width: 800px; /* Adjust as needed */
+        }
+        
+        input {
+            
+            
+            height: 50px;
+            background: none;
+            outline: none;
+            border: 2px solid;
+            border-radius: 40px;
+            padding: 20px 45px 20px 20px;
+            font-size: 16px;
+            color: #fff;
+          }
+          
+          .btn{
+            height: 50px;
+            background-color: #fff;
+            outline: none;
+            border : solid #fff;
+            border-radius: 40px ;
+            font-size: 16px;
+            color: #000;
+            
+          }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="text-center">
+            <img src="{% static 'images/icon1.jpeg' %}" class="img-fluid" alt="Guru Tech Logo" 
+                style="width:101px; height:93px; vertical-align: middle; margin-right: 5px; border-radius: 50%;">
+            <h2 class="mt-4">
+                 Certificate verification portal
+            </h2>
+            {% comment %} <h1 class="mt-4">Search Certificate</h1> {% endcomment %}
+            <form method="GET" action="" class="form-inline justify-content-center mt-4">
+                <div class="form-group mx-sm-3 mb-2">
+                    <label for="certificate_id" class="sr-only">Certificate ID:</label>
+                    <input type="text" class="form-control" id="certificate_id" name="certificate_id" placeholder="year/certificatenumber">
+                </div>
+                <button type="submit" class="btn btn-primary mb-2">Search</button>
+            </form>
+            {% if certificate %}
+                <div class="alert alert-success mt-4">
+                    <h2>Certificate Found:</h2>
+                    <p><strong>Name:</strong> {{ certificate.name }}</p>
+                    <p><strong>Certificate ID:</strong> {{ certificate.certificate_id }}</p>
+                    <p><strong>Created At:</strong> {{ certificate.created_at }}</p>
+                </div>
+            {% elif not_found %}
+                <div class="alert alert-danger mt-4">
+                    <h2>Certificate not found</h2>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

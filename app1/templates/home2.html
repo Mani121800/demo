@@ -1,0 +1,22 @@
+{% extends 'base2.html' %}
+
+{% block content %}
+
+    {% if flag == 1 or flag == 2 %}
+        <h1>{{ Course_Links.details }}&#160 Batch no-{{ batch_number }}</h1>
+        {% if Course_Links.link %}
+            <form method="post" action="{% url 'join_course' %}">
+                {% csrf_token %}
+                <input type="hidden" name="course_link" value="{{ Course_Links.link }}">
+                <button class="join-button" type="submit">Join</button>
+            </form>
+        {% else %}
+            <p>Please Contact Admin Team</p>
+        {% endif %}
+    {% else %}
+        <h1>YOUR APPLICATION UNDER ADMINISTRATIVE PROCESS</h1>
+        <h1>Do You Have Any Queries? Please contact us on WhatsApp </h1>
+        <h1>+91 78454 93857</h1>
+    {% endif %}
+
+{% endblock %}

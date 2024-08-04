@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Guru tech</title>
+  {% extends 'contactheader.html' %} {% load static %} {% block content %}
+  <link rel="icon" href="{% static 'images/icon1.jpeg' %}" type="image/jpeg">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .verification_code .form-control {
+      width: 300px !important;
+      flex: 0 0 auto; /* Prevent the input from shrinking */
+      /* font-weight: 900; */
+      height: 40px;
+    }
+    .errorlist {
+      color: red;
+      list-style-type: none;
+    }
+    .is-invalid {
+      border-color: red;
+    }
+    .bold-label {
+      font-weight: bold;
+      color: red;
+    }
+    .lead {
+      color: #532abc; /* Tomato color for text */
+      background-color: #eeeeee; /* Khaki color for background */
+      border: 2px solid #8a2be2; /* BlueViolet color for border */
+     
+      border-radius: 10px;
+      font-size: 1.5em;
+      text-align: center;
+      font-family: 'Arial', sans-serif;
+    }
+    .list-unstyled li {
+      color: #4682b4; /* SteelBlue color for text */
+      background-color: #f5f5f5; /* LightGray background color */
+      border: 1px solid #dcdcdc; /* Gainsboro border color */
+      
+      margin: 1px 0;
+      border-radius: 5px;
+      font-family: 'Arial', sans-serif;
+      font-size: 1.1em;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    .form-container {
+      margin: 1px auto;
+      max-width: 600px;
+    }
+    .form-container h2 {
+      text-align: center;
+    }
+    .form-container .lead {
+      margin-bottom: 20px;
+    }
+    .form-container form {
+      display: flex;
+      flex-direction: column;
+    }
+    .form-container .mb-3 {
+      margin-bottom: 1rem;
+    }
+    .form-container label {
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+    .form-container input,
+    .form-container select,
+    .form-container textarea {
+      width: 100%;
+     
+      font-size: 1.4rem;
+      border: 1px solid #ccc;
+      border-radius: 0.25rem;
+    }
+    .form-container button {
+     
+      font-size: 1.4rem;
+      border: none;
+      border-radius: 0.25rem;
+      cursor: pointer;
+    }
+    .form-container button.btn-primary {
+      background-color: #007bff;
+      color: white;
+      padding: 7px 14px;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .form-container button.btn-secondary {
+      background-color: #6c757d;
+      color: white;
+    }
+    .text-center {
+      text-align: center;
+    }
+    .form-check {
+      display: flex;
+      align-items: center;
+    }
+    .form-check input {
+      margin-right: 0.5rem;
+      
+    }
+    .form-check-label {
+      margin-bottom: 0;
+    }
+ 
+    .submit_btn, #submit-btn{
+     
+      font-size: 1.4rem;
+      line-height: 1.42857143;
+
+    }
+  </style>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+
+     
+      /* Apply margin-top for mobile devices */
+@media (max-width: 767px) {
+    .head {
+        margin-top: 32px;
+    }
+}
+
+
+  </style>
+      <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+
+
+        .payment-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .razorpay-button {
+            padding: 15px 30px;
+            background-color: #007BFF; /* Blue background */
+            color: #fff; /* White text */
+            border: none;
+            border-radius: 60px; /* Larger border radius */
+            cursor: pointer;
+            font-size: 28%;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .razorpay-button:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+            transform: translateY(-2px);
+        }
+
+        .razorpay-button:active {
+            transform: translateY(0);
+        }
+        
+        .confirm-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #09333f;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .confirm-button:hover {
+            background-color: #09333f;
+        }
+
+        .payment-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .custom-razorpay-button {
+           background-color: #007bff;
+            border: none;
+            color: white !important;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+       
+    </style>
+</head>
+<body>
+  
+  <div> 
+   
+    <div class="form-container">
+
+      <h2 class="head">Course Registration for Advance Python courses</h2>
+      <p class="lead">"Please provide the exact email and phone number. If entered incorrectly, the process will not continue"</p>
+      <div class="text-center">
+        <h5>Please fill the details..</h5>
+        
+        <form method="POST" action="{% url 'payment_form' %}">
+          {% csrf_token %}
+
+          {% for field in form %}
+          <div class="mb-3">
+            {{ field.label_tag }}
+            {% if field.name == "email" %}
+            <div >
+              {{ field }}
+              <button type="button" class="btn btn-primary" id="generate-otp">Generate OTP</button>
+            </div>
+            <div id="otp-response" class="mt-2"></div>
+            <div class="mb-3">
+              <div class="input-group verification_code">
+                <input type="text" id="verification-code" class="form-control " placeholder="Enter your OTP Here*" name="verification_code" disabled>
+              </div>
+              <div id="otp-verify" class="mt-2"></div>
+            </div>
+            {% elif field.name == "disclaimer" %}
+            <div class="form-check">
+              {{ field }}
+              <label class="form-check-label bold-label" for="{{ field.id_for_label }}">I agree</label>
+            </div>
+            {% else %}
+            {{ field }}
+            {% endif %}
+            {% if field.errors %}
+            <ul class="errorlist">
+              {% for error in field.errors %}
+              <li>{{ error }}</li>
+              {% endfor %}
+            </ul>
+            <script>
+              document.querySelector('[name="{{ field.name }}"]').classList.add('is-invalid');
+            </script>
+            {% endif %}
+          </div>
+          {% endfor %}
+          
+          <div class="submit_btn" style="display: flex; justify-content: center; " >
+            <button type="submit" id="submit-btn" disabled class="btn btn-primary" >Pay with Razorpay</button>
+            
+            
+          </div>
+          
+        </form>
+        
+        
+       
+       
+           
+        <form id="otp-form" method="POST" action="{% url 'generate_otp_community' %}" style="display:none;">
+          {% csrf_token %}
+          <input type="hidden" name="email" id="otp-email">
+        </form>
+        
+      </div>
+    </div>
+  </div>
+  {% if payment %}
+  <div class="payment-container">
+    <!-- <div style="  text-transform: uppercase; letter-spacing: 1px; border: 2px solid white; border-radius: 1000px; box-shadow: 0 2px 5px 0 rgba(3,6,26,0.15); transition: .5s all ease-in-out; animation: wiggle 4s 2s infinite, pulse 2s infinite 3s cubic-bezier(0.25, 0, 0, 1);background: linear-gradient(to right, #04e0e4, #c602f7);"> -->
+        <form action="{% url 'payment-status' %}" method="POST">
+            {% csrf_token %}
+            <script
+                src="https://checkout.razorpay.com/v1/checkout.js"
+                data-key="rzp_test_I4CeG7pUY0K5BP"
+                data-amount="{{ payment.amount }}"
+                data-currency="INR"
+                data-order_id="{{ payment.id }}"
+                data-buttontext="Pay with Razorpay"
+                data-name="Guru Tech"
+                data-description="Advance Course Payment"
+                data-image="{% static 'images/guru tech logo.jpeg' %}"
+                data-prefill.name="{{ payment.name }}"
+                data-prefill.email="{{ payment.email }}"
+                data-prefill.contact="+91 {{ payment.phone }}"
+                data-theme.color="#007BFF" 
+                
+
+                
+            ></script>
+            <script>
+              window.addEventListener('load', function() {
+                  document.querySelector('.razorpay-payment-button').click();
+              });
+          </script>
+            <input type="hidden" name="hidden">
+            <input type="hidden" name="name" value="{{ payment.name }}">
+            <input type="hidden" name="email" value="{{ payment.email }}">
+            <input type="hidden" name="phone" value="{{ payment.phone }}">
+            <input type="hidden" name="amount" value="{{ payment.amount }}">
+            <input type="hidden" name="batch_number" value="{{ payment.batch_number }}">
+        </form>
+    </div>
+    
+    <br>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+          // Hide the submit button if payment is in progress
+          if (document.querySelector('.payment-container')) {
+              document.getElementById('submit-btn').style.display = 'none';
+            
+          }
+      });
+    </script>
+     {% endif %}
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+          var razorpayButton = document.querySelector('.razorpay-payment-button');
+          if (razorpayButton) {
+              razorpayButton.classList.add('custom-razorpay-button');
+          }
+      });
+  </script>
+  <script>
+    
+    function showCompanyInput() {
+      var occupationRadio = document.querySelector('input[name="occupation"]:checked');
+      var companyInput = document.querySelector('[name="company_name"]');
+      if (occupationRadio.value === 'working') {
+        companyInput.style.display = 'block'; // Show the company name input
+        companyInput.setAttribute('required', 'required'); // Make the company name input required
+      } else {
+        companyInput.style.display = 'none'; // Hide the company name input
+        companyInput.removeAttribute('required'); // Remove the required attribute
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      var inputs = document.querySelectorAll('input, textarea, select');
+
+      inputs.forEach(function(input) {
+        input.addEventListener('input', function() {
+          var errorList = input.parentElement.querySelector('.errorlist');
+          if (errorList) {
+            errorList.remove();
+            input.classList.remove('is-invalid');
+          }
+          checkAllInputsValid();
+        });
+      });
+
+      function checkAllInputsValid() {
+        var isValid = true;
+
+        inputs.forEach(function(input) {
+          if (!input.checkValidity()) {
+            isValid = false;
+          }
+        });
+
+        var otpVerifyDiv = document.getElementById('otp-verify');
+        if (!otpVerifyDiv.textContent.includes('OTP verified successfully')) {
+          isValid = false;
+        }
+      }
+
+      document.getElementById('verification-code').addEventListener('blur', function() {
+        var verificationCodeInput = document.querySelector('input[name="verification_code"]');
+        var formData = new FormData();
+        var emailInput = document.querySelector('input[name="email"]');
+        formData.append('verification_code', verificationCodeInput.value);
+        formData.append('csrfmiddlewaretoken', document.querySelector('input[name="csrfmiddlewaretoken"]').value);
+        formData.append('email', emailInput.value);
+
+        fetch("{% url 'verify_otp_community_landingpage' %}", {
+          method: 'POST',
+          body: formData,
+        })
+        .then(response => response.json())
+        .then(data => {
+          var otpResponseDiv = document.getElementById('otp-verify');
+          var name = document.getElementById('name').value;
+          var phone = document.getElementById('phone').value;
+          var batch_number = document.getElementById('batch_number').value;
+          if (data.status === 'success' && data.amount !== undefined) {
+            otpResponseDiv.innerHTML = `
+              <p>${data.message}</p>
+              <h5>The course total amount is ${data.total_amount}. You have paid ${data.amount}. The balance amount to be paid is ${data.balance_amount}.</h5>
+            `;
+            document.getElementById('name').value=`${data.name}`;
+            document.getElementById('phone').value=`${data.phone}`;
+            var balance_amount =`${data.balance_amount}`;
+            document.getElementById('amount').value=Math.trunc(balance_amount);
+            document.getElementById('batch_number').value=`${data.batch_number}`;
+
+          
+          } else {
+            otpResponseDiv.innerHTML = `<p>${data.message}</p>`;
+          }
+          otpResponseDiv.classList.add(data.status === 'success' ? 'text-success' : 'text-danger');
+          if (data.status === 'success') {
+            document.getElementById('submit-btn').disabled = false;
+            document.querySelector('input[name="email"]').readOnly = true;
+            document.querySelector('input[name="verification_code"]').readOnly = true;
+            document.getElementById('generate-otp').disabled = true;
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+      });
+
+      document.getElementById('generate-otp').addEventListener('click', function() {
+        var emailInput = document.querySelector('input[name="email"]');
+        var otpEmailInput = document.getElementById('otp-email');
+        otpEmailInput.value = emailInput.value;
+
+        var formData = new FormData();
+        formData.append('email', emailInput.value);
+        formData.append('csrfmiddlewaretoken', document.querySelector('input[name="csrfmiddlewaretoken"]').value);
+
+        fetch("{% url 'generate_otp_community' %}", {
+          method: 'POST',
+          body: formData,
+        })
+        .then(response => response.json())
+        .then(data => {
+          var otpResponseDiv = document.getElementById('otp-response');
+          otpResponseDiv.innerHTML = data.message;
+          otpResponseDiv.classList.add(data.status === 'success' ? 'text-success' : 'text-danger');
+          if (data.status === 'success') {
+            document.getElementById('verification-code').disabled = false;
+            document.getElementById('verify-code').disabled = false;
+            emailInput.readOnly = true;
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+      });
+    });
+
+    if (window.history.replaceState) {
+      window.history.replaceState(null, null, window.location.href);
+    }
+   
+  </script>
+</body>
+</html>
+
+{% endblock content %}

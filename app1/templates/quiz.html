@@ -1,0 +1,664 @@
+
+<!DOCTYPE html>
+ <html>
+ <head>
+    <title>Guru tech</title>
+    {% load static %}
+    <link rel="icon" href="{% static 'images/icon1.jpeg' %}" type="image/jpeg">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+
+        * {
+
+          font-family: "Poppins", sans-serif;
+        }
+         body {
+             font-family: Arial, sans-serif;
+             margin: 20px;
+             padding: 0;
+             margin: 0;
+
+             background-color: orange;
+
+         }
+
+
+        .container {
+            max-width: 1600px;
+            margin: 40px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 5px rgba(2, 0, 0, 0.1);
+
+        }
+
+        {% comment %} background: linear-gradient(90deg, #FB37FF, #18B2DE); {% endcomment %}
+         .question-container {
+             margin-bottom: 20px;
+             user-select: none; /* Disable text selection */
+             font-weight: bold;
+             font-size: 18px;
+             padding-left: 120px;
+         }
+
+         #timer {
+             font-size: 18px;
+             text-align: center;
+             margin-bottom: 20px;
+         }
+
+         button {
+             padding: 10px 20px;
+             margin-top: 10px;
+             background-color: #007bff;
+             color: #fff;
+             border: none;
+             cursor: pointer;
+             border-radius: 5px;
+         }
+
+         button:hover {
+             background-color: #0056b3;
+         }
+
+         .hidden {
+             display: none;
+         }
+
+         .error-message {
+             color: red;
+             margin-top: 5px;
+         }
+
+         .camera-container {
+             position: fixed;
+             top: 60px;
+             left: 930px;
+             z-index: 1000;
+             display: flex;
+             flex-direction: column;
+             align-items: center;
+             padding: 10px;
+
+             border-radius: 8px;
+             box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+
+
+         }
+         {% comment %} background: linear-gradient(90deg, #FB37FF, #18B2DE); {% endcomment %}
+         {% comment %} background:  linear-gradient(90deg, #FB37FF, #18B2DE);
+             border-radius: 8px;
+             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); {% endcomment %}
+
+         .camera {
+             width: 320px; /* Medium size width */
+             height: 240px; /* Medium size height */
+             background-color: black;
+         }
+
+         .waveform {
+             width: 320px; /* Match the width of the camera */
+             height: 50px; /* Small size height */
+             background-color: #f9f9f9;
+             border: 1px solid #ccc;
+         }
+
+         video {
+             width: 100%;
+             height: 100%;
+         }
+         .recording-time {
+            font-size: 14px;
+            margin-top: 10px;
+        }
+         /* Hide the quiz for screens smaller than 1024px */
+         @media (max-width: 1024px) {
+             .container {
+                 display: none;
+             }
+
+             .mobile-message {
+                 display: block;
+                 text-align: center;
+                 font-size: 18px;
+                 color: red;
+                 margin-top: 50px;
+             }
+         }
+
+         /* Display the quiz for screens 1024px and larger */
+         @media (min-width: 1024px) {
+             .mobile-message {
+                 display: none;
+             }
+         }
+         .instructions-lead {
+            color: #532abc; /* Tomato color for text */
+            background-color: #eeeeee; /* Khaki color for background */
+            border: 4px solid orange; /* BlueViolet color for border */
+            padding: 5px;
+            border-radius: 5px;
+            font-size: 15px;
+            width:800px;
+            font-family: 'Arial', sans-serif;
+            margin:40px;
+
+        }
+        {% comment %} input {
+            height: 20px;
+            background: none;
+            outline: none;
+            border: 2px solid;
+            border-radius: 5px;
+            padding: 20px 45px 20px 20px;
+            font-size: 20px;
+            color: #fff;
+          }
+           {% endcomment %}
+          {% comment %} .btn{
+            height: 50px;
+            background-color: #fff;
+            outline: none;
+            border : solid #fff;
+            border-radius: 40px ;
+            font-size: 16px;
+            color: #000;
+            justify-content: center;
+          } {% endcomment %}
+
+          .glow-on-hover {
+            width: 220px;
+            height: 50px;
+            border: none;
+            outline: none;
+            color: orange;
+            background: #111;
+            cursor: pointer;
+            position: relative;
+            z-index: 0;
+            border-radius: 10px;
+        }
+
+        .glow-on-hover:before {
+            content: '';
+            background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+            position: absolute;
+            top: -2px;
+            left:-2px;
+            background-size: 400%;
+            z-index: -1;
+            filter: blur(5px);
+            width: calc(100% + 4px);
+            height: calc(100% + 4px);
+            animation: glowing 20s linear infinite;
+            opacity: 0;
+            transition: opacity .3s ease-in-out;
+            border-radius: 10px;
+        }
+
+        .glow-on-hover:active {
+            color: #000
+        }
+
+        .glow-on-hover:active:after {
+            background: transparent;
+        }
+
+        .glow-on-hover:hover:before {
+            opacity: 1;
+        }
+
+        .glow-on-hover:after {
+            z-index: -1;
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: #111;
+            left: 0;
+            top: 0;
+            border-radius: 10px;
+        }
+
+        @keyframes glowing {
+            0% { background-position: 0 0; }
+            50% { background-position: 400% 0; }
+            100% { background-position: 0 0; }
+        }
+        #email {
+            border: 3px solid #ccc; /* Light grey border */
+            padding: 8px;
+            border-radius: 10px;
+            border-color: orange;
+            width:270px;
+            font-size: 15px;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Highlight border in orange when the input field is focused */
+        #email:focus {
+            border-color: orange; /* Orange border */
+            outline: none; /* Remove default outline */
+        }
+        #verification-code {
+            border: 3px solid #ccc; /* Light grey border */
+            padding: 8px;
+            border-radius: 10px;
+            border-color: orange;
+            width:200px;
+
+        }
+
+        /* Highlight border in orange when the input field is focused */
+        #verification-code:focus {
+            border-color: orange; /* Orange border */
+            outline: none; /* Remove default outline */
+        }
+
+     </style>
+ </head>
+ <body>
+     <div class="container">
+
+        {% comment %} <img src="{% static 'images/guru tech logo.jpeg' %}"
+            alt="Guru Tech Logo" style="width:76px; height:70px; vertical-align: middle;
+             margin-right: 5px; border-radius: 50%;"> {% endcomment %}
+         <h1 style="margin:40px;">
+             <img src="{% static 'images/gurutech.jpeg' %}" class="img-fluid mb-4" alt="Gurutech"
+             style="width:300px; height:70px; vertical-align: middle;
+             margin-right: 5px;  margin-right: 5px; border-radius: 0;"> <img src="{% static 'images/javatestlogo.jpg' %}" alt="java Logo" style="width:76px; height:70px; vertical-align: middle; margin-right: 5px; object-fit: cover;">Java Test
+            </h1>
+
+
+         <div class="instructions-lead" style="text-align: center;">
+            <h2 style="text-align:center;">Instructions</h2>
+            <div style="display: inline-block; text-align: left;">
+            <ul style="list-style-position: inside; padding: 0; margin: 0;" >
+                <li style="color: black;margin-bottom: 10px;">You have only <mark>two attempts</mark> to take this test.</li>
+                <li style="color: black;margin-bottom: 10px;">If you attempt more than twice, you will not be able to take the test again.</li>
+                <li style="color: black;margin-bottom: 10px;">If you <mark>score more than 80%, only then you can get your certificates.</mark></li>
+                <li style="color: black;margin-bottom: 10px;">If you switch to another window or application, the page will automatically refresh.</li>
+                <li style="color: black;margin-bottom: 10px;">If you switch off the camera , you can't take test.</li>
+
+            </ul>
+            <div style="margin-top: 20px;">
+                <input type="checkbox" id="agree" name="agree">
+                <label for="agree"style="font-size: 15px;font-weight: bold;">I have read and accept the instructions</label>
+            </div>
+        </div>
+        </div>
+
+
+         {% comment %} <div class="name-container" style="margin:40px;">
+            <label for="name">Enter your name:</label>
+            <input type="email" id="name" name="name" required>
+
+        </div> {% endcomment %}
+         <div class="email-container" style="margin:40px;" >
+             <label for="email"
+             style="font-size: 15px; font-family: Arial, sans-serif; color: #333;font-weight: bold;">
+             Enter your email:</label>
+             <input type="email"  id="email" name="email" required>
+
+             <button type="button" id="generate-otp-btn" class="glow-on-hover"  onclick="generateOTP()">Generate OTP</button>
+             <div id="otp-error" class="error-message"></div>
+         </div>
+         <div class="email-container" style="margin:40px;">
+             <input type="text" id="verification-code" onblur="verifyOTP()" style="font-size: 18px; font-family: Arial, sans-serif; color: #333;font-weight: bold;"class="form-control fixed-width-input" placeholder="Enter your OTP Here" name="verification_code">
+             <div id="otp-error1" class="error-message"></div>
+         </div>
+         <form id="quiz-form" class="hidden" method="POST" >
+         {% csrf_token %}
+             <input type="hidden" id="email-hidden" name="email" style="text-align:center;">
+             <div id="timer"></div>
+             {% for index, question in questions %}
+                 <div class="question-container {% if index != 0 %}hidden{% endif %}" id="question-{{ index }}">
+                     <p>{{ forloop.counter0|add:1 }}. {{ question.question_text }}</p>
+
+                     <input type="radio" name="question_{{ question.id }}" value="A"> {{ question.option_a }}<br>
+                     <input type="radio" name="question_{{ question.id }}" value="B"> {{ question.option_b }}<br>
+                     <input type="radio" name="question_{{ question.id }}" value="C"> {{ question.option_c }}<br>
+                     <input type="radio" name="question_{{ question.id }}" value="D"> {{ question.option_d }}<br>
+                 </div>
+             {% endfor %}
+             <button type="button" class="glow-on-hover" id="previous-btn" onclick="previousQuestion()" style="display: none;position: relative; left: 120px;">Previous</button>
+             <button type="button" class="glow-on-hover"id="next-btn" onclick="nextQuestion()" style="position: relative; left: 120px;">Next</button>
+             <button type="submit" class="glow-on-hover"style="display: none;position: relative; left: 120px;">Submit</button>
+         </form>
+     </div>
+     <div class="mobile-message">The Java test is not available on mobile devices or tablets. Please access it on a laptop or desktop computer.</div>
+
+     <div class="camera-container">
+     <div class="recording-time" id="recording-time">00:00.00</div>
+         <p>Video recording in progress</p>
+
+         <video id="camera" class="camera"></video>
+         <p>Audio recording in progress</p>
+         <canvas id="waveform" class="waveform"></canvas>
+
+     </div>
+<div class="footer" style="margin-top: 20px; text-align: center;">
+               <p>© <span id="currentYear"></span> Guru tech. All rights reserved.</p>
+    </div>
+
+    <script>
+      // Set current year in the footer
+    document.getElementById("currentYear").innerText = new Date().getFullYear();
+    </script>
+     <script>
+         let timeLeft = 30 * 60; // 30 minutes in seconds
+
+         function startTimer() {
+             let timer = setInterval(function() {
+                 if (timeLeft <= 0) {
+                     clearInterval(timer);
+                     document.getElementById('quiz-form').submit();
+                 } else {
+                     let minutes = Math.floor(timeLeft / 60);
+                     let seconds = timeLeft % 60;
+                     document.getElementById('timer').innerHTML = '<strong>Timer:'+minutes + 'm ' + seconds + 's</strong>';
+                     timeLeft -= 1;
+                 }
+             }, 1000);
+         }
+
+         let currentQuestion = 0;
+         const totalQuestions = {{ questions|length }};
+
+         function nextQuestion() {
+             if (currentQuestion < totalQuestions - 1) {
+                 document.getElementById('question-' + currentQuestion).classList.add('hidden');
+                 currentQuestion++;
+                 document.getElementById('question-' + currentQuestion).classList.remove('hidden');
+             }
+
+             updateButtonVisibility();
+         }
+
+         function previousQuestion() {
+             if (currentQuestion > 0) {
+                 document.getElementById('question-' + currentQuestion).classList.add('hidden');
+                 currentQuestion--;
+                 document.getElementById('question-' + currentQuestion).classList.remove('hidden');
+             }
+
+             updateButtonVisibility();
+         }
+
+         function updateButtonVisibility() {
+             // Show or hide previous and next buttons based on current question index
+             if (currentQuestion === 0) {
+                 document.getElementById('previous-btn').style.display = 'none';
+             } else {
+                 document.getElementById('previous-btn').style.display = 'inline-block';
+             }
+
+             if (currentQuestion === totalQuestions - 1) {
+                 document.querySelector('button[type="submit"]').style.display = 'block';
+                 document.getElementById('next-btn').style.display = 'none';
+             } else {
+                 document.querySelector('button[type="submit"]').style.display = 'none';
+                 document.getElementById('next-btn').style.display = 'inline-block';
+             }
+         }
+
+         function generateOTP() {
+             let email = document.getElementById('email').value.trim();
+             let checkbox = document.getElementById('agree').checked;
+
+            if (!checkbox) {
+                alert('Please read and accept the instructions before taking the test.');
+                return;
+            }
+             if (email !== '') {
+                 // Send AJAX request to generate OTP
+                 let xhr = new XMLHttpRequest();
+                 xhr.open('POST', '/generate_otp_basic_java_questions/', true);
+                 xhr.setRequestHeader('Content-Type', 'application/json');
+                 xhr.onload = function() {
+                     let response = JSON.parse(xhr.responseText);
+                     if (xhr.status === 200 && response.status === 'success') {
+                         document.getElementById('otp-error').innerHTML = response.message;
+                     } else {
+                        //  document.getElementById('otp-error').innerHTML = response.message;
+                        if (response.message === 'Email is not registered') {
+                            document.getElementById('otp-error').innerHTML = response.message + ' Redirecting in to register page  10 seconds...';
+                            setTimeout(function() {
+                                window.location.href = 'https://www.edugurutech.in/add_record_java/';
+                            }, 10000); // 10000 milliseconds = 10 seconds
+                        } else {
+                            document.getElementById('otp-error').innerHTML = response.message;
+                        }
+                     }
+                 };
+                 xhr.onerror = function() {
+                     console.error('Error sending request.');
+                 };
+                 xhr.send(JSON.stringify({ email: email }));
+             } else {
+                 document.getElementById('otp-error').innerHTML = 'Please enter your email.';
+             }
+         }
+
+         function verifyOTP() {
+             let email = document.getElementById('email').value.trim();
+             let verificationCode = document.getElementById('verification-code').value.trim();
+
+             if (email !== '' && verificationCode !== '') {
+                 let xhr = new XMLHttpRequest();
+                 xhr.open('POST', '/verify_otp_new/', true);
+                 xhr.setRequestHeader('Content-Type', 'application/json');
+                 xhr.onload = function() {
+                     let response = JSON.parse(xhr.responseText);
+                     if (xhr.status === 200 && response.status === 'success') {
+                         document.getElementById('otp-error1').innerHTML = response.message;
+                         document.getElementById('generate-otp-btn').disabled = true;
+                         document.querySelector('input[name="email"]').readOnly = true;
+                         document.getElementById('quiz-form').classList.remove('hidden');
+                         startTimer(); // Start the timer only after OTP is verified
+                         checkCameraStatus(); // Start checking the camera status
+                     } else {
+                         document.getElementById('otp-error1').innerHTML = response.message;
+                     }
+                 };
+                 xhr.onerror = function() {
+                     console.error('Error sending request.');
+                 };
+                 xhr.send(JSON.stringify({ email: email, verification_code: verificationCode }));
+             } else {
+                 document.getElementById('otp-error1').innerHTML = 'Please enter the verification code.';
+             }
+         }
+
+         {% comment %} // Access camera
+         const camera = document.getElementById('camera');
+         const waveformCanvas = document.getElementById('waveform');
+         const canvasCtx = waveformCanvas.getContext('2d');
+
+         navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+             .then(stream => {
+                 camera.srcObject = stream;
+                 camera.play();
+
+                 const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                 const analyser = audioContext.createAnalyser();
+                 const source = audioContext.createMediaStreamSource(stream);
+                 source.connect(analyser);
+
+                 analyser.fftSize = 2048;
+                 const bufferLength = analyser.frequencyBinCount;
+                 const dataArray = new Uint8Array(bufferLength);
+
+                 function drawWaveform() {
+                     requestAnimationFrame(drawWaveform);
+
+                     analyser.getByteTimeDomainData(dataArray);
+
+                     canvasCtx.fillStyle = 'white';
+                     canvasCtx.fillRect(0, 0, waveformCanvas.width, waveformCanvas.height);
+
+                     canvasCtx.lineWidth = 2;
+                     canvasCtx.strokeStyle = 'black';
+                     canvasCtx.beginPath();
+
+                     const sliceWidth = waveformCanvas.width / bufferLength;
+                     let x = 0;
+
+                     for (let i = 0; i < bufferLength; i++) {
+                         const v = dataArray[i] / 128.0;
+                         const y = v * waveformCanvas.height / 2;
+
+                         if (i === 0) {
+                             canvasCtx.moveTo(x, y);
+                         } else {
+                             canvasCtx.lineTo(x, y);
+                         }
+
+                         x += sliceWidth;
+                     }
+
+                     canvasCtx.lineTo(waveformCanvas.width, waveformCanvas.height / 2);
+                     canvasCtx.stroke();
+                 }
+
+                 drawWaveform();
+             })
+             .catch(err => {
+                 console.error('Error accessing media devices.', err);
+                 alert('Please enable your camera and microphone to proceed with the test.');
+             });
+
+         function checkCameraStatus() {
+             setInterval(function() {
+                 const videoTracks = camera.srcObject.getVideoTracks();
+                 if (videoTracks.length === 0 || videoTracks[0].readyState !== 'live') {
+                     alert('Your camera is turned off. Please turn it on to continue the test.');
+                     document.getElementById('quiz-form').classList.add('hidden');
+                 }
+             }, 5000); // Check every 5 seconds
+         } {% endcomment %}
+         const camera = document.getElementById('camera');
+const waveformCanvas = document.getElementById('waveform');
+const canvasCtx = waveformCanvas.getContext('2d');
+const recordingTimeDisplay = document.getElementById('recording-time');
+
+navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+    .then(stream => {
+        camera.srcObject = stream;
+        camera.play();
+
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const analyser = audioContext.createAnalyser();
+        const source = audioContext.createMediaStreamSource(stream);
+        source.connect(analyser);
+
+        analyser.fftSize = 2048;
+        const bufferLength = analyser.frequencyBinCount;
+        const dataArray = new Uint8Array(bufferLength);
+
+        function drawWaveform() {
+            requestAnimationFrame(drawWaveform);
+
+            analyser.getByteTimeDomainData(dataArray);
+
+            canvasCtx.fillStyle = 'black';
+            canvasCtx.fillRect(0, 0, waveformCanvas.width, waveformCanvas.height);
+
+            canvasCtx.lineWidth = 2;
+            canvasCtx.strokeStyle = 'white';
+            canvasCtx.beginPath();
+
+            const sliceWidth = waveformCanvas.width / bufferLength;
+            let x = 0;
+
+            for (let i = 0; i < bufferLength; i++) {
+                const v = dataArray[i] / 128.0;
+                const y = v * waveformCanvas.height / 2;
+
+                if (i === 0) {
+                    canvasCtx.moveTo(x, y);
+                } else {
+                    canvasCtx.lineTo(x, y);
+                }
+
+                x += sliceWidth;
+            }
+
+            canvasCtx.lineTo(waveformCanvas.width, waveformCanvas.height / 2);
+            canvasCtx.stroke();
+        }
+
+        drawWaveform();
+
+        // Timer logic
+        let startTime = Date.now();
+        setInterval(() => {
+            let elapsed = Date.now() - startTime;
+            let seconds = (elapsed / 1000).toFixed(2);
+            recordingTimeDisplay.textContent = `00:${seconds.padStart(5, '0')}`;
+        }, 100);
+    })
+    .catch(err => {
+        console.error('Error accessing media devices.', err);
+        alert('Please enable your camera and microphone to proceed with the test.');
+    });
+
+function checkCameraStatus() {
+    setInterval(function() {
+        const videoTracks = camera.srcObject.getVideoTracks();
+        if (videoTracks.length === 0 || videoTracks[0].readyState !== 'live') {
+            alert('Your camera is turned off. Please turn it on to continue the test.');
+            document.getElementById('quiz-form').classList.add('hidden');
+        }
+    }, 5000); // Check every 5 seconds
+}
+checkCameraStatus();
+
+         function appendEmailToForm() {
+            let email = document.getElementById('email').value.trim();
+            if (email !== '') {
+                document.getElementById('email-hidden').value = email;
+            }
+        }
+         document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('quiz-form').addEventListener('submit', appendEmailToForm);
+
+            // Disable right-click
+            document.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+            });
+
+            // Disable text selection
+            document.addEventListener('selectstart', function(e) {
+                e.preventDefault();
+            });
+
+            // Disable copy, cut, and paste
+            document.addEventListener('copy', function(e) {
+                e.preventDefault();
+            });
+            document.addEventListener('cut', function(e) {
+                e.preventDefault();
+            });
+            document.addEventListener('paste', function(e) {
+                e.preventDefault();
+            });
+        });
+        function handleVisibilityChange() {
+            if (document.hidden) {
+                // Page is hidden, refresh the page
+                location.reload();
+            }
+        }
+
+        // Event listener for visibility change
+        document.addEventListener('visibilitychange', handleVisibilityChange);
+
+     </script>
+ </body>
+ </html>
+
+

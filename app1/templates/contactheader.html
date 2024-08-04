@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guru Tech</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <style>
+      /* Base styles remain the same */
+      #navbar {
+          background-color: black;
+          color: white;
+          width: 100%;
+          position: fixed;
+          top: 0;
+          left: 0;
+          z-index: 1000;
+          box-shadow: 0 4px 2px -2px gray;
+          padding: 10px 20px;
+          box-sizing: border-box;
+      }
+  
+      .headercontainer {
+          width: 100%;
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 0 20px;
+          display: flex;
+          justify-content: space-between;
+      }
+  
+      .logo-container {
+          display: flex;
+          align-items: center;
+          flex-grow: 1;
+      }
+  
+      .logo-container img {
+          width: 57px;
+          height: 55px;
+          margin-right: 9px;
+          border-radius: 50%;
+      }
+  
+      .logo-text {
+          font-size: 20px;
+          color: white;
+      }
+  
+      .largenav {
+          display: flex;
+          align-items: center;
+          list-style-type: none;
+          padding: 0;
+          margin: 0;
+          flex-wrap: wrap;
+      }
+  
+      .upper-links {
+          margin-right: 20px;
+      }
+  
+      .upper-links a {
+          text-decoration: none;
+          color: white;
+          font-size: 18px;
+          transition: color 0.3s;
+      }
+  
+      .upper-links a:hover {
+          color: #ccc;
+      }
+  
+      @media screen and (max-width: 767px) {
+          #navbar {
+              padding: 8px 15px;
+          }
+  
+          .headercontainer {
+              flex-direction: column;
+              padding: 8px 10px;
+          }
+  
+          .logo-container {
+              margin-bottom: 10px;
+              text-align: left;
+              flex-grow: 0;
+          }
+  
+          .logo-text {
+              font-size: 18px;
+          }
+  
+          .largenav {
+              display: none;
+              flex-direction: column;
+              align-items: center;
+              width: 100%;
+              margin-top: 10px;
+          }
+  
+          .upper-links {
+              margin: 5px 0;
+              width: 100%;
+              text-align: center;
+          }
+  
+          .upper-links a {
+              font-size: 16px;
+              padding: 10px 20px;
+              display: block;
+          }
+  
+          .upper-links a:hover {
+              background-color: #333;
+          }
+      }
+  
+      .menu-icon {
+          display: none;
+          cursor: pointer;
+          position: absolute;
+          top: 19px;
+          right: 15px;
+          width: 59px;
+          height: 52px;
+          background-color: white;
+          border-radius: 50%;
+          text-align: center;
+          line-height: 50px;
+          color: black;
+          z-index: 1100;
+      }
+  
+      .menu-icon:hover {
+          background-color: #ddd;
+      }
+    </style>
+    <style>
+      .upper-links {
+          list-style: none;
+      }
+      .upper-links:hover .dropdown-menu {
+          display: block;
+      }
+      .upper-links a {
+          text-decoration: none;
+          color: white;
+      }
+      footer {
+          padding: 0;
+          background-color: black;
+          margin: 0;
+      }
+      .footercontainer {
+          width: 100%;
+          margin: 0 auto;
+          padding: 25px 20px;
+          font-weight: bolder;
+          font-size: larger;
+      }
+      .imgtag {
+          margin-right: 5px;
+      }
+      .mission {
+          text-align: left;
+      }
+      .section {
+          flex: 2;
+      }
+      .section p {
+          text-align: left;
+      }
+      .sectioncontact {
+          text-align: left;
+      }
+      @media (max-width: 768px) {
+          .imgtag {
+              margin-right: -335px;
+          }
+          .mission {
+              text-align: center;
+          }
+          .section {
+              flex: auto;
+          }
+          .section p {
+              text-align: center;
+          }
+          .sectioncontact {
+              text-align: center;
+          }
+      }
+      #email:hover{
+        text-decoration: underline;
+      }
+    </style>
+</head>
+<body>
+     <div id="navbar">
+        <div class="headercontainer">
+            <div class="logo-container">
+                <a href="{% url 'landingpage' %}" style="text-decoration: none;">
+                <img src="{% static 'images/guru tech logo.jpeg' %}" alt="Guru Tech Logo">
+                <span class="logo-text">Guru Tech</span>
+                </a>
+            </div>
+            <ul class="largenav">
+                <li class="upper-links"><a href="{% url 'landingpage' %}">Home</a></li>
+                <li class="upper-links"><a href="{% url 'contactus' %}">Contact Us</a></li>
+                <li class="upper-links"><a href="{% url 'terms' %}">Our Business Policies</a></li>
+                <li class="upper-links"><a href="/#aboutus">About Us</a></li>
+                <li class="upper-links"><a href="/#Courses">Courses</a></li>
+                <li class="upper-links"><a href="/#test">Testimonials</a></li>
+            </ul>
+            <div class="menu-icon" onclick="toggleMenu()">☰</div>
+        </div>
+      </div>
+      <div class="desktop-spacer">
+        <br><br><br>
+    </div>
+    <div class="desktop-space">
+      <br><br><br><br><br><br><br><br><br><br><br><br><br><h1></h1><h1></h1>
+    </div>
+{% block content %}
+{% endblock content %}
+<footer id="contact" style="background-color: #000; color: #fff; padding-top: 10px; padding-bottom: 10px; text-align: center;">
+    <li style="padding-right:87%; margin: 0; list-style-type: none;">
+        <a class="links" href="#">
+            <img src="{% static 'images/guru tech logo.jpeg' %}" class="imgtag" alt="Guru Tech Logo" style="width:57px; height:55px; vertical-align: middle; border-radius: 50%; margin-left: 0;">
+        </a>
+    </li>
+    <div class="footercontainer" style="display: flex; flex-wrap: wrap; justify-content: center; margin: 0; padding: 0;">
+        <div class="section" style="margin: 0 20px; text-align: center;">
+            <h2 class="mission" style="font-weight: bold; margin: 10px 0; font-size: 1.3em;">Our Mission</h2>
+            <p style="margin: 0;">Develop teamwork skills through problem-solving challenges, fostering leadership, communication, and adaptability in diverse scenarios for optimal performance.</p>
+        </div>
+        <div id="section" class="section" style="flex: 1; margin: 0 20px;">
+            <h2 style="font-weight: bold; margin: 10px 0; font-size: 1.3em;">Our Courses</h2>
+            <ul style="list-style: none; padding-left: 0; margin: 0;">
+                <li style="margin-bottom: 6px;"><a href="/#Courses" style="color: #fff; text-decoration: none; display: block;"Java</a></li>
+                <li style="margin-bottom: 6px;"><a href="/#Courses" style="color: #fff; text-decoration: none; display: block;">Python</a></li>
+                <li style="margin-bottom: 6px;"><a href="/#Courses" style="color: #fff; text-decoration: none; display: block;">SQL</a></li>
+                <li style="margin-bottom: 6px;"><a href="/#Courses" style="color: #fff; text-decoration: none; display: block;">Angular</a></li>
+                <li style="margin-bottom: 6px;"><a href="/#Courses" style="color: #fff; text-decoration: none; display: block;">Android</a></li>
+                <li style="margin-bottom: 6px;"><a href="/#Courses" style="color: #fff; text-decoration: none; display: block;">React</a></li>
+            </ul>
+        </div>
+       
+        <div id="section" class="section" style="flex: 1; margin: 0 20px;">
+            <h2 style="font-weight: bold; margin: 10px 0; font-size: 1.3em;">Quick Links</h2>
+            <ul style="list-style: none; padding-left: 0; margin: 0;">
+                <li style="margin-bottom: 6px;"><a href="/#" style="color: #fff; text-decoration: none; display: block;">Home</a></li>
+                <li style="margin-bottom: 6px;"><a href="/#aboutus" style="color: #fff; text-decoration: none; display: block;">About Us</a></li>
+                <li style="margin-bottom: 6px;"><a href="/#Courses" style="color: #fff; text-decoration: none; display: block;">Our Courses</a></li>
+                <li style="margin-bottom: 6px;"><a href="{% url 'contactus' %}" style="color: #fff; text-decoration: none; display: block;">Contact Us</a></li>
+            </ul>
+        </div>
+
+        <div class="sectioncontact" style="flex: 1; margin: 0 20px;">
+            <h2 style="font-weight: bold; margin: 10px 0; font-size: 1.3em;">Contact Us</h2>
+            <ul style="list-style: none; padding-left: 0; margin: 0;">
+                <li style="margin-bottom: 6px;">
+                    <a href="tel:+917845493857" style="font-size: 20px; color: white;">
+                        <i style="transform: rotate(170deg); color: orange; font-size: 20px;" class="fas fa-phone icon"></i>
+                        +91 7845493857
+                    </a>
+                </li>
+                <li style="margin-bottom: 6px;">
+                    <a href="mailto:Gurutechharkscorp@gmail.com" style="font-size: 20px; color: white; display: flex; align-items: center;">
+                        <i style="font-size: 20px; color: white;" class="fas fa-envelope email-icon"></i>
+                        <span style="margin-left: 10px;">gurutechharkscorp@gmail.com</span>
+                    </a>
+                </li>
+                <li style="margin-bottom: 6px;">
+                    <a href="https://maps.app.goo.gl/BCwVQ5v9aN3PEqa1A" target="_blank" style="font-size: 20px; color: white;">
+                        🏢 180/3, STAR COMPLEX, ALAMBATTI ROAD, NAGAMANGALAM, TIRUCHIRAPPALLI, TAMILNADU 620012.
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <hr style="width: 95%; margin: 20px auto;">
+    <div class="footer" style="margin-top: 20px;">
+        <p>© <span id="currentYear"></span> Guru tech. All rights reserved.</p>
+    </div>
+</footer>
+
+
+
+    <script>
+      // Set current year in the footer
+    document.getElementById("currentYear").innerText = new Date().getFullYear();
+   
+ </script>
+<script>
+    // Handle navbar color change on scroll
+    window.addEventListener('scroll', function() {
+        var navbar = document.getElementById('navbar');
+        if (window.scrollY > 0) {
+            navbar.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+        } else {
+            navbar.style.backgroundColor = 'black';
+        }
+    });
+
+    // Toggle menu visibility
+    function toggleMenu() {
+        var navLinks = document.querySelector('.largenav');
+        var desktopSpace = document.querySelector('.desktop-space');
+        var isNavLinksVisible = window.getComputedStyle(navLinks).display !== 'none';
+        
+        navLinks.style.display = isNavLinksVisible ? 'none' : 'flex';
+        desktopSpace.style.display = isNavLinksVisible ? 'none' : 'block';
+    }
+
+    // Show menu icon only on smaller screens
+    function updateMenuIconVisibility() {
+        var menuIcon = document.querySelector('.menu-icon');
+        var navLinks = document.querySelector('.largenav');
+        var desktopSpace = document.querySelector('.desktop-space');
+        
+        if (window.innerWidth <= 767) {
+            menuIcon.style.display = 'block';
+            navLinks.style.display = 'none';
+            desktopSpace.style.display = 'none';
+        } else {
+            menuIcon.style.display = 'none';
+            navLinks.style.display = 'flex';
+            desktopSpace.style.display = 'none';
+        }
+    }
+
+    window.onload = updateMenuIconVisibility;
+    window.onresize = updateMenuIconVisibility;
+</script>
+</body>
+</html>

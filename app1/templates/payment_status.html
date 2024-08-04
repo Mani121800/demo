@@ -1,0 +1,96 @@
+{% extends 'base_landingpage.html' %}
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(90deg, #FB37FF, #18B2DE);
+        }
+
+        h1, h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #000;
+        }
+
+        h3 {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .details {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .details p {
+            margin: 5px 0;
+        }
+    </style>
+    <script>
+        // This script will prevent the user from navigating back
+        history.pushState(null, null, location.href);
+        window.onpopstate = function() {
+            history.go(1);
+        };
+    </script>
+</head>
+<body>
+    <br><br><br><br><br><br>
+    {% if status == 'payment_id' %}
+    <h1>Thank you for your registration</h1>
+    <h1>Your Payment was already successful!</h1>
+    <div class="details">
+        <h3>The course total amount is {{ total_amount }}. You have paid {{ amount }}. The balance amount to be paid is {{ balance_amount }}</h3>
+    </div>
+    <div class="text-center mt-5">
+       
+        <h4><a style="text-decoration:none;" href="{% url 'download_invoice' %}" ><button class="btn btn-danger btn-sm">Download Invoice</button></a></h4>
+
+    </div>
+    {% elif status == 'success' %}
+    <h1>Thank you for your registration</h1>
+    <h1>Payment was successful!</h1>
+    <div class="details">
+        <h3>The course total amount is {{ total_amount }}. You have paid {{ amount }}. The balance amount to be paid is {{ balance_amount }}</h3>
+    </div>
+    <div class="text-center mt-5">
+        
+        <h4><a style="text-decoration:none;" href="{% url 'download_invoice' %}" ><button class="btn btn-danger btn-sm">Download Invoice</button></a></h4>
+
+    </div>
+    {% elif status == 'Payment verification failed' %}
+    <h2 style="text-align: center;">Payment verification failed! Please try again.</h2>
+    {% elif status == 'Razorpay signature verification failed' %}
+    <h2 style="text-align: center;">Razorpay signature verification failed! Please try again.</h2>
+    {% elif status == 'Invalid request method' %}
+    <h2 style="text-align: center;">Thanks for visiting my website.</h2>
+    {% elif status == 'Razorpay BadRequestError' %}
+    <h2 style="text-align: center;">sorry ,there was a probelm in website !</h2>
+    {% else %}
+    <h2 style="text-align: center;">Your payment has failed! Please try again.</h2>
+    {% endif %}
+    <div class="text-center mt-5">
+    <a href="/#" class="btn btn-primary" role="button">Home page</a>
+</div>
+    <br><br><br><br>
+</body>
+</html>
+{% endblock content %}
