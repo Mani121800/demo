@@ -29,8 +29,8 @@ jobs:
 
     - name: Deploy to PythonAnywhere
       env:
-        PYTHONANYWHERE_API_TOKEN: ${{ secrets.9b8424cb0e7a9c5ff702e147ca273dd9f37e0810}}
-         # PYTHONANYWHERE_API_TOKEN: ${{ secrets.demo }}
+       # PYTHONANYWHERE_API_TOKEN: ${{ secrets.9b8424cb0e7a9c5ff702e147ca273dd9f37e0810}}
+          PYTHONANYWHERE_API_TOKEN: ${{ secrets.demo }}
       run: |
         curl -s https://gurutechdev.pythonanywhere.com//api/v0/user/<username>/webapps/<app_name>/deploy/ \
         -H "Authorization: Token $PYTHONANYWHERE_API_TOKEN"
