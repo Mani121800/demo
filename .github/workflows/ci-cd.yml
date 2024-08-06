@@ -25,7 +25,7 @@ jobs:
 
     - name: Upload files to PythonAnywhere
       env:
-        SSH_PRIVATE_KEY: ${{ secrets.PYTHONANYWHERE_SSH_KEY }}
+        SSH_PRIVATE_KEY: ${{ secrets.demo  }}
       run: |
         echo "$SSH_PRIVATE_KEY" > private_key
         chmod 600 private_key
