@@ -29,7 +29,7 @@ jobs:
       run: |
         echo "$SSH_PRIVATE_KEY" > private_key
         chmod 600 private_key
-        rsync -avz -e "ssh -i private_key -o StrictHostKeyChecking=no" ./GuruTechDev@ssh.pythonanywhere.com:/home/GuruTechDev/hosting/
+        rsync -avz -e "ssh -i private_key -o StrictHostKeyChecking=no" ./ GuruTechDev@ssh.pythonanywhere.com:/home/GuruTechDev/hosting/
 
     - name: Reload PythonAnywhere Web App
       env:
