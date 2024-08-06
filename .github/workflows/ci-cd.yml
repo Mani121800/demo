@@ -1,7 +1,7 @@
 name: CI/CD Pipeline
 
 on:
-   push:
+  push:
     branches:
       - master
 
@@ -23,12 +23,17 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-
-
-    - name: Deploy to PythonAnywhere
+    - name: Upload files to PythonAnywhere
       env:
-       # PYTHONANYWHERE_API_TOKEN: ${{ secrets.9b8424cb0e7a9c5ff702e147ca273dd9f37e0810}}
-          PYTHONANYWHERE_API_TOKEN: ${{ secrets.demo }}
+        SSH_PRIVATE_KEY: ${{ secrets.PYTHONANYWHERE_SSH_KEY }}
       run: |
-        curl -s https://gurutechdev.pythonanywhere.com//api/v0/user/GuruTechDev/webapps/GuruTechDev/reload/ \
+        echo "$SSH_PRIVATE_KEY" > private_key
+        chmod 600 private_key
+        rsync -avz -e "ssh -i private_key -o StrictHostKeyChecking=no" ./ yourusername@ssh.pythonanywhere.com:/home/yourusername/yourproject/
+
+    - name: Reload PythonAnywhere Web App
+      env:
+        PYTHONANYWHERE_API_TOKEN: ${{ secrets.demo }}
+      run: |
+        curl -s -X POST https://www.pythonanywhere.com/api/v0/user/GuruTechDev/webapps/GuruTechDev/reload/ \
         -H "Authorization: Token $PYTHONANYWHERE_API_TOKEN"
