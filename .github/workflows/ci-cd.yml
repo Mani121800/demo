@@ -31,4 +31,4 @@ jobs:
         curl -u $PA_USERNAME:$PA_PASSWORD \
              -X POST \
              -d "command=python manage.py migrate" \
-             https://www.pythonanywhere.com/api/v0/user/$PA_USERNAME/webapps/yourappname/reload/
+             https://www.pythonanywhere.com/api/v0/user/$PA_USERNAME/webapps/GuruTechDev.pythonanywhere.com/reload/
