@@ -1,39 +1,34 @@
-name: CI/CD Pipeline
+name: Deploy to PythonAnywhere
 
 on:
   push:
     branches:
-      - master
+      - master  # Adjust this to your main branch if it's different
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v2
 
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v2
       with:
-        python-version: '3.10'
+        python-version: '3.10'  # Specify your Python version
 
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    - name: Upload files to PythonAnywhere
+    - name: Deploy to PythonAnywhere
       env:
-        SSH_PRIVATE_KEY: ${{ secrets.mani  }}
+        PYTHONANYWHERE_USERNAME: ${{ secrets.GuruTechDev}}
+        PYTHONANYWHERE_PASSWORD: ${{ secrets.gurudev@123 }}
       run: |
-        echo "$SSH_PRIVATE_KEY" > private_key
-        chmod 600 private_key
-        rsync -avz -e "ssh -i private_key -o StrictHostKeyChecking=no" ./ GuruTechDev@ssh.pythonanywhere.com:/home/GuruTechDev/hosting/
-
-    - name: Reload PythonAnywhere Web App
-      env:
-        PYTHONANYWHERE_API_TOKEN: ${{ secrets.demo }}
-      run: |
-        curl -s -X POST https://www.pythonanywhere.com/api/v0/user/GuruTechDev/webapps/GuruTechDev/reload/ \
-        -H "Authorization: Token $PYTHONANYWHERE_API_TOKEN"
+        curl -u $PYTHONANYWHERE_USERNAME:$PYTHONANYWHERE_PASSWORD \
+             -X POST \
+             -F "file=@deploy.sh" \
+             https://www.pythonanywhere.com/api/v0/user/$PYTHONANYWHERE_USERNAME/webapps/your-webapp-name/reload/
