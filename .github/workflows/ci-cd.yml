@@ -27,5 +27,5 @@ jobs:
         env:
           PA_API_KEY: ${{ secrets.PA_API_KEY }}
         run: |
-          curl -X POST "https://www.pythonanywhere.com/api/v0/user/<your-username>/webapps/<your-app-name>/reload/" \
+          curl -X POST "https://www.pythonanywhere.com/api/v0/user/ GuruTechDev/webapps/GuruTechDev.pythonanywhere.com/reload/" \
           -H "Authorization: Token $PA_API_KEY"
