@@ -28,7 +28,7 @@ jobs:
         PYTHONANYWHERE_USERNAME: ${{ secrets.GuruTechDev}}
         PYTHONANYWHERE_PASSWORD: ${{ secrets.gurudev@123 }}
       run: |
-        curl -u $GuruTechDev:$gurudev@123 \
+          curl -u $PYTHONANYWHERE_USERNAME:$PYTHONANYWHERE_PASSWORD \
              -X POST \
              -F "file=@deploy.sh" \
              https://www.pythonanywhere.com/api/v0/user/$.GuruTechDev/webapps/GuruTechDev.pythonanywhere.com/reload/
