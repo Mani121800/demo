@@ -27,5 +27,5 @@ jobs:
         env:
           PA_API_KEY: ${{ secrets.PA_API_KEY }}
         run: |
-         curl -X POST "https://www.gurutechdev.in/api/v0/user/GuruTechDev/home/GuruTechDev/hosting" \
+         curl -X POST "https://www.gurutechdev.com/api/v0/user/GuruTechDev/home/GuruTechDev/hosting" \
           -H "Authorization: Token $PA_API_KEY"
